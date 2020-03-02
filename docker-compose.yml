@@ -1,0 +1,15 @@
+version: '3'
+services:
+    db:
+        image: mysql:latest
+        ports: 
+            - 3309:3306
+        environment: 
+            MYSQL_DATABASE: lms_catalogue
+            MYSQL_USER: user1
+            MYSQL_PASSWORD: books
+            MYSQL_ROOT_PASSWORD: root123
+    web: 
+            build: .
+            ports: 
+                - 8080:8080
