@@ -1,18 +1,26 @@
 package ie.ucd.lblms;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import javax.annotation.processing.Generated;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="users")
 public class User {
     private Long id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private String username;
     private String password;
-    private ArrayList<Loan> currentLoans = new ArrayList<>();
-    private ArrayList<Loan> loanHistory = new ArrayList<>();
+    private List<Loan> currentLoans;
+    private List<Loan> loanHistory;
     private boolean librarian;
 
     public User(){}
-    public User(String username, String password, ArrayList<Loan> currentLoans, ArrayList<Loan> loanHistory, boolean librarian){
+    public User(String username, String password, List<Loan> currentLoans, List<Loan> loanHistory, boolean librarian){
         this.username = username;
         this.password = password;
         this.currentLoans = currentLoans;
