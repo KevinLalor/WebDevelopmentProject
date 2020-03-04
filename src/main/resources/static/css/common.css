@@ -4,10 +4,7 @@
     spanish grey  #978897
     quartz        #494850
     gunmetal      #2C2C34
-
-
 */
-
 @keyframes main-header {
   0%   {background-color:red; left:0%; top:0%;}
   25%  {background-color:yellow; left:20%; top:0%;}
@@ -15,8 +12,7 @@
   75%  {background-color:green; left:0%; top:10%;}
   100% {background-color:red; left:0%; top:0%;}
 }
-
-body, html {
+  body, html {
     height: 100%;
   }
   .background-image {
@@ -27,38 +23,30 @@ body, html {
     background-position: center;
     background-size: cover;
   }
-
   .background-image-content-box{
       background-color: #D8D8F6;
       float: right;
       width: 35%;
       height: 100%;
   }
-
   .welcome-class{
     text-align: center;
     padding-top: 20%;
     margin-left: 10%;
     margin-right: 10%;
   }
-
   .list-group{
     padding-top: 10%;
     padding-left: 5%;
     padding-right: 5%;
-    
   }
   .list-group-item{
       color: #494850;
-      transition: all 0.5s ease-in-out;
-      
+      transition: all 0.5s ease-in-out; 
   }
-
   .list-group-item-action:hover{
     transform: scale(1.1);
-    
   }
-
   .home-page-header{
       color: #2C2C34;
       text-align: center;
@@ -71,10 +59,8 @@ body, html {
       position: relative;
       background-color: red;
       animation-name: main-header;
-      animation-duration: 2s;
-    
+      animation-duration: 2s;  
   }
-
   .login-box {
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
