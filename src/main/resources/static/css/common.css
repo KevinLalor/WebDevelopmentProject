@@ -11,8 +11,8 @@
 @keyframes main-header {
   0%   {background-color:red; left:0%; top:0%;}
   25%  {background-color:yellow; left:20%; top:0%;}
-  50%  {background-color:blue; left:20%; top:20%;}
-  75%  {background-color:green; left:0%; top:20%;}
+  50%  {background-color:blue; left:20%; top:10%;}
+  75%  {background-color:green; left:0%; top:10%;}
   100% {background-color:red; left:0%; top:0%;}
 }
 
@@ -34,8 +34,16 @@ body, html {
       width: 35%;
       height: 100%;
   }
+
+  .welcome-class{
+    text-align: center;
+    padding-top: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
   .list-group{
-    padding-top: 35%;
+    padding-top: 10%;
     padding-left: 5%;
     padding-right: 5%;
     
@@ -79,5 +87,6 @@ body, html {
     box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
     text-align: center;
   }
+
 
   
