@@ -12,21 +12,21 @@ public class Artifact
     private Long id;
     @Column
     private String title;
-    @Column
-    private String type;
-    @Column
+    @Column (name = "media_type")
+    private String mediaType;
+    @Column (name = "total_available")
     private int totalAvailable;
-    @Column
+    @Column (name = "count_on_loan")
     private int countOnLoan;
     //@Column
     //private boolean available;
 
     public Artifact() { }
 
-    public Artifact(String title, String type, int totalAvailable, int countOnLoan, boolean available)
+    public Artifact(String title, String mediaType, int totalAvailable, int countOnLoan, boolean available)
     {
         this.title = title;
-        this.type = type;
+        this.mediaType = mediaType;
         this.totalAvailable = totalAvailable;
         this.countOnLoan = countOnLoan;
         //this.available = available;
@@ -37,9 +37,9 @@ public class Artifact
     }
     public void setTitle(String title) { this.title = title; }
     
-    public String getType() { return type; }
+    public String getMediaType() { return mediaType; }
     
-    public void setType(String type) { this.type = type; }
+    public void setMediaType(String mediaType) { this.mediaType = mediaType; }
     
     public int getTotalAvailable() { return totalAvailable; }
 

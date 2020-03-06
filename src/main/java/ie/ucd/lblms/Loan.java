@@ -39,7 +39,7 @@ public class Loan {
 
     public String renewLoan(Loan loan)
     {
-        if(loan.getArtifact().getAvailable())
+        if(loan.getArtifact().getTotalAvailable() > loan.getArtifact().getCountOnLoan())
         {
             Calendar newEndDate = Calendar.getInstance();
             newEndDate.add(Calendar.DATE, 7);
