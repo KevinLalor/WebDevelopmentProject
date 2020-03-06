@@ -23,8 +23,10 @@ public class User {
     @Column(name = "librarion_status")
     private boolean librarian;
 
-    public User(){}
-    public User(String username, String password, List<Loan> currentLoans, List<Loan> loanHistory, boolean librarian){
+    public User() { }
+
+    public User(String username, String password, List<Loan> currentLoans, List<Loan> loanHistory, boolean librarian)
+    {
         this.username = username;
         this.password = password;
         this.currentLoans = currentLoans;
