@@ -67,17 +67,86 @@ body, html {
     
   }
 
-  .login-box {
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border-radius: 10px 10px 10px 10px;
-    background: #fff;
-    width: 90%;
-    max-width: 450px;
-    position: relative;
-    padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    text-align: center;
-  }
+/* Bordered form */
+.login-content-box{
+      background-color: #D8D8F6;
+      display: inline-block;
+      width: 33%;
+      height: 60%;
+      margin-top: 10%;
+      margin-left: 33%;
+}
+
+form {
+  background-color: #D8D8F6;
+  
+}
+
+.login-page-header{
+  color: #2C2C34;
+  text-align: center;
+  padding: 15%;
+  background-color:#B18FCF;
+  font-family: Simplifica;
+  position: relative;
+  background-color: #978897;
+  
+
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #494850;
+  box-sizing: border-box;
+}
+
+/* Colour scheme   
+    pale lavender #D8D8F6
+    pastel purple #B18FCF
+    spanish grey  #978897
+    quartz        #494850
+    gunmetal      #2C2C34
+
+
+*/
+/* Set a style for all buttons */
+button {
+  background-color: #B18FCF;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #B18FCF;;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 1%;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+
 
   

@@ -15,17 +15,32 @@
     <body>
        
         <div class="background-image">
-            <div class="login-box">
-                <!-- Login Form -->
-                <form>
-                    <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                    <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                    <input type="submit" class="fadeIn fourth" value="Log In">
-                </form>
+            <div class="login-content-box"> 
+                
+             <form action="action_page.php" method="post">             
+                
+                <div class="container">
+                    
+                    <div class="login-page-header">
+                        <h1>LB Library</h1>
+                        <h2>Member Login</h2>
+                    </div>
 
-
-            </div>
-            
+                   <label for="uname"><b>Username</b></label>
+                   <input type="text" placeholder="Enter Username" name="uname" required>
+              
+                   <label for="psw"><b>Password</b></label>
+                   <input type="password" placeholder="Enter Password" name="psw" required>
+              
+                    <button type="submit">Login</button>
+                </div>
+              
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" class="cancelbtn">Cancel</button>
+                    <span class="psw"><a href="#">Forgot password?</a></span>
+                 </div>
+              </form>
+            </div> 
         </div>
         
         <script src="" async defer></script>
