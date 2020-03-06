@@ -1,7 +1,10 @@
 package ie.ucd.lblms;
 
+import javax.persistence.*;
 
 public class Artifact {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String title;
     private String type;

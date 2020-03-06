@@ -1,22 +1,26 @@
 package ie.ucd.lblms;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="users")
 public class User {
-    private Long id;
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    @Column (name = "user_name")
     private String username;
+    @Column
     private String password;
+    @ElementCollection
+    @CollectionTable(name = "user_current_loans", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "current_loan")
     private List<Loan> currentLoans;
+    @ElementCollection
+    @CollectionTable(name = "user_past_loans", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "past_loan")
     private List<Loan> loanHistory;
+    @Column(name = "librarion_status")
     private boolean librarian;
 
     public User(){}
@@ -28,31 +32,28 @@ public class User {
         this.librarian = librarian;
     }
 
-    public boolean isLibrarian() {
-        return librarian;
-    }
+    public boolean getLibrarian() { return librarian; }
 
-    public void setLibrarian(boolean librarian) {
-        this.librarian = librarian;
-    }
+    public void setLibrarian(boolean librarian) { this.librarian = librarian; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
     public String getUsername() { return username; }
 
-    public void addLoan(Loan newLoan){
-        currentLoans.add(newLoan);
-    }
-    public void loanIsFinished(Loan loan) {
+    public void setUsername(String username) { this.username = username; }
+
+    public List<Loan> getCurrentLoans() { return currentLoans; }
+
+    public void setCurrentLoans(Loan newLoan) { currentLoans.add(newLoan); }
+
+    public List<Loan> getLoanHistory() { return loanHistory; }
+
+    public void setLoanHistory(Loan loan) { loanIsFinished(loan); }
+
+    public void loanIsFinished(Loan loan)
+    {
         currentLoans.remove(loan);
         loanHistory.add(loan);
     }
