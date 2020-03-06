@@ -2,6 +2,8 @@ package ie.ucd.lblms;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "artifact")
 public class Artifact
 {
     @Id
@@ -15,19 +17,19 @@ public class Artifact
     @Column
     private int totalAvailable;
     @Column
-    private int totalAmount;
-    @Column
-    private boolean available;
+    private int countOnLoan;
+    //@Column
+    //private boolean available;
 
     public Artifact() { }
 
-    public Artifact(String title, String type, int totalAvailable, int totalAmount, boolean available)
+    public Artifact(String title, String type, int totalAvailable, int countOnLoan, boolean available)
     {
         this.title = title;
         this.type = type;
         this.totalAvailable = totalAvailable;
-        this.totalAmount = totalAmount;
-        this.available = available;
+        this.countOnLoan = countOnLoan;
+        //this.available = available;
     }
     public String getTitle()
     {
@@ -43,11 +45,11 @@ public class Artifact
 
     public void setTotalAvailable(int totalAvailable) { this.totalAvailable = totalAvailable; }
     
-    public int getTotalAmount() { return totalAmount; }
+    public int getCountOnLoan() { return countOnLoan; }
     
-    public void setTotalAmount(int totalAmount) { this.totalAmount = totalAmount; }
+    public void setCountOnLoan(int countOnLoan) { this.countOnLoan = countOnLoan; }
     
-    public boolean getAvailable() { return available; }
+    //public boolean getAvailable() { return available; }
 
-    public void setAvailable(boolean available) { this.available = available; }
+    //public void setAvailable(boolean available) { this.available = available; }
 }
