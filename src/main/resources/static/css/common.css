@@ -72,6 +72,16 @@
       margin-left: 33%;
 }
 
+.signup-content-box{
+     background-color: #D8D8F6;
+     display: inline-block;
+     width: 33%;
+     height: 60%;
+     margin-top: 1%;
+     margin-left: 33%;
+
+}
+
 form {
   background-color: #D8D8F6;
   
