@@ -3,14 +3,14 @@ package ie.ucd.lblms;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "artifact")
+@Table (name = "artifact")
 public class Artifact
 {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column (name = "artifact_id")
     private Long id;
-    @Column
+    @Column (name = "title")
     private String title;
     @Column (name = "media_type")
     private String mediaType;

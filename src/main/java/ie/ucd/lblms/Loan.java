@@ -1,55 +1,47 @@
 package ie.ucd.lblms;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import javax.persistence.*;
+import java.time.LocalDate;
 
-public class Loan {
-    private String startDate;
-    private String endDate;
+@Entity
+@Table (name = "loan")
+public class Loan
+{
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name= "loan_id")
+    private Long id;
+    @Column (name = "member")
+    private String member;
+    @Column (name = "artifact")
+    private String artifact;
+    @Column (name = "due_date")
+    private LocalDate dueDate;
+    @Column (name = "completed")
     private boolean completed;
-    private Artifact artifact;
-    private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public Loan() { }
 
-    public Loan(String startDate, String endDate, boolean completed, Artifact artifact)
+    public Loan(String dueDate, boolean completed, String artifact)
     {
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.dueDate = LocalDate.now().plusWeeks(2);
         this.completed = completed;
         this.artifact = artifact;
     }
 
-    public String getStartDate() { return dateFormat.format(startDate); }
+    public String getMember() { return member; }
 
-    public void setStartDate(String startDate) { this.startDate = startDate; }
+    public void setMember(String member) { this.member = member; }
 
-    public String getEndDate() { return dateFormat.format(endDate); }
+    public String getArtifact() { return artifact; }
 
-    public void setEndDate(String endDate) { this.endDate = endDate; }
+    public void setArtifact(String artifact) { this.artifact = artifact; }
 
-    public boolean isCompleted() { return completed; }
+    public String getDueDate() { return dueDate.toString(); }
+
+    public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
+
+    public boolean getCompleted() { return completed; }
 
     public void setCompleted(boolean completed) { this.completed = completed; }
-
-    public Artifact getArtifact() { return artifact; }
-
-    public void setArtifact(Artifact artifact) { this.artifact = artifact; }
-
-    /*
-    public String renewLoan(Loan loan)
-    {
-        if(loan.getArtifact().getTotalAvailable() > loan.getArtifact().getCountOnLoan())
-        {
-            Calendar newEndDate = Calendar.getInstance();
-            newEndDate.add(Calendar.DATE, 7);
-            loan.setEndDate(dateFormat.format(newEndDate));
-            return "done";
-        }
-        else 
-        { 
-            return "not available for loan"; 
-        }
-    }
-    */
 }
