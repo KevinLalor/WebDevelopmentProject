@@ -1,10 +1,7 @@
 package ie.ucd.lblms.controller;
 
-import ie.ucd.lblms.Artifact;
 import ie.ucd.lblms.ArtifactRepository;
-import ie.ucd.lblms.Loan;
 import ie.ucd.lblms.LoanRepository;
-import ie.ucd.lblms.User;
 import ie.ucd.lblms.UserData;
 
 import org.springframework.beans.factory.annotation.Autowired;

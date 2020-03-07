@@ -2,7 +2,6 @@ package ie.ucd.lblms;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class Loan {
     private String startDate;
@@ -37,6 +36,7 @@ public class Loan {
 
     public void setArtifact(Artifact artifact) { this.artifact = artifact; }
 
+    /*
     public String renewLoan(Loan loan)
     {
         if(loan.getArtifact().getTotalAvailable() > loan.getArtifact().getCountOnLoan())
@@ -51,5 +51,5 @@ public class Loan {
             return "not available for loan"; 
         }
     }
-
+    */
 }

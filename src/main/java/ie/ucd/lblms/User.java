@@ -4,7 +4,8 @@ import java.util.List;
 
 @Entity
 @Table(name="user")
-public class User {
+public class User
+{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -12,6 +13,8 @@ public class User {
     private String username;
     @Column
     private String password;
+
+    /*
     @ElementCollection
     @CollectionTable(name = "user_current_loans", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "current_loan")
@@ -19,8 +22,8 @@ public class User {
     @ElementCollection
     @CollectionTable(name = "user_past_loans", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "past_loan")
-    private List<Loan> loanHistory;
-    @Column(name = "librarion_status")
+    private List<Loan> loanHistory;*/
+    @Column(name = "librarian_status")
     private boolean librarian;
 
     public User() { }
@@ -29,8 +32,8 @@ public class User {
     {
         this.username = username;
         this.password = password;
-        this.currentLoans = currentLoans;
-        this.loanHistory = loanHistory;
+        //this.currentLoans = currentLoans;
+        //this.loanHistory = loanHistory;
         this.librarian = librarian;
     }
 
@@ -45,7 +48,7 @@ public class User {
     public String getUsername() { return username; }
 
     public void setUsername(String username) { this.username = username; }
-
+    /*
     public List<Loan> getCurrentLoans() { return currentLoans; }
 
     public void setCurrentLoans(Loan newLoan) { currentLoans.add(newLoan); }
@@ -58,5 +61,5 @@ public class User {
     {
         currentLoans.remove(loan);
         loanHistory.add(loan);
-    }
+    }*/
 }

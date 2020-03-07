@@ -5,11 +5,15 @@ services:
         ports: 
             - 3309:3306
         environment: 
-            MYSQL_DATABASE: lms_catalogue
-            MYSQL_USER: user1
-            MYSQL_PASSWORD: books
-            MYSQL_ROOT_PASSWORD: root123
+            MYSQL_DATABASE: lblms
+            MYSQL_USER: lblms
+            MYSQL_PASSWORD: lblms
+            MYSQL_ROOT_PASSWORD: lblms
     web: 
             build: .
+            depends_on: 
+                - db
+            environment: 
+                HOSTNAME: db
             ports: 
                 - 8080:8080
