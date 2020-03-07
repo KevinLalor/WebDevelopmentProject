@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>
+{
     public Optional<User> findUsernameAndPassword(String username, String password);
     // Add query to find username and password here
     public List<Credentials> getCredentials(@Param("user") String username, @Param("password") String password);
