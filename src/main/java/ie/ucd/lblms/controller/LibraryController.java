@@ -1,7 +1,7 @@
 package ie.ucd.lblms.controller;
 
-import ie.ucd.lblms.ArtifactRepository;
-import ie.ucd.lblms.LoanRepository;
+//import ie.ucd.lblms.ArtifactRepository;
+//import ie.ucd.lblms.LoanRepository;
 import ie.ucd.lblms.UserData;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,14 @@ public class LibraryController {
     @Autowired
     private UserData userData;
 
-    @Autowired
-    private LoanRepository loanRepository;
+    //@Autowired
+    //private LoanRepository loanRepository;
 
-    @Autowired
-    private ArtifactRepository artifactRepository;
+    //@Autowired
+    //private ArtifactRepository artifactRepository;
 
-    private boolean isLoggedIn() {return userData.getUser() != null;}
-    private boolean isLibrarian() {return userData.isLibrarian();}
+    private boolean isLoggedIn() { return userData.getUser() != null; }
+    private boolean isLibrarian() { return userData.isLibrarian(); }
 
     @GetMapping("/")
     public void home(HttpServletResponse response) throws IOException {

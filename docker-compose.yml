@@ -1,19 +1,15 @@
-version: '3'
+version: '3.7'
 services:
+    web: 
+        build: .
+        ports: 
+            - 8080:8080
     db:
-        image: mysql
+        image: mysql:latest
         ports: 
             - 3309:3306
         environment: 
             MYSQL_DATABASE: lblms
-            MYSQL_USER: lblms
-            MYSQL_PASSWORD: lblms
-            MYSQL_ROOT_PASSWORD: lblms
-    web: 
-            build: .
-            depends_on: 
-                - db
-            environment: 
-                HOSTNAME: db
-            ports: 
-                - 8080:8080
+            MYSQL_USER: user1
+            MYSQL_PASSWORD: password123
+            MYSQL_ROOT_PASSWORD: root
