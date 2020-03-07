@@ -68,7 +68,7 @@
       display: inline-block;
       width: 33%;
       height: 60%;
-      margin-top: 10%;
+      margin-top: 5%;
       margin-left: 33%;
 }
 
@@ -124,7 +124,7 @@ button:hover {
   opacity: 0.8;
 }
 
-/* Extra style for the cancel button (red) */
+/* Extra style for the cancel button*/
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
