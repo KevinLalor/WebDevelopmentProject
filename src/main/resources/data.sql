@@ -1,7 +1,7 @@
-INSERT INTO users (username, password, librarian)
+INSERT INTO users (username, password)
 VALUES 
-    ('member1', '123', 0),
-    ('staff1', 'abc', 1);
+    ('member1', '123'),
+    ('staff1', 'abc';
 
 INSERT INTO artifacts (title, media_type)
 VALUES 
