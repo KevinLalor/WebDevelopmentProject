@@ -71,11 +71,39 @@ public class LibraryController
         return "member_home.html";
     }
 
-    @GetMapping("/librarian_home")
-    public String loadLibrarianHome(Model model)
+    @GetMapping("/member_settings")
+    public String loadMemberSettings(Model model)
     {
-        model.addAttribute("name", librarianSession.getLibrarian().getUsername());
-        return "librarian_home.html";
+        model.addAttribute("name", userSession.getUser().getUsername());
+        return "member_settings.html";
+    }
+
+    @GetMapping("/member_settings_change_username")
+    public String changeMemberUsername(Model model)
+    {
+        model.addAttribute("name", userSession.getUser().getUsername());
+        return "member_username.html";
+    }
+
+    @PostMapping("/member_settings_change_username")
+    public String changedMemberUsername(String username)
+    {
+       userSession.getUser().setUsername(username);
+       return "member_settings.html";
+    }
+
+    @GetMapping("/member_settings_change_password")
+    public String changeMemberPassword(Model model)
+    {
+        model.addAttribute("name", userSession.getUser().getUsername());
+        return "member_password.html";
+    }
+
+    @PostMapping("/member_settings_change_password")
+    public String changedMemberPassword(String password)
+    {
+        userSession.getUser().setPassword(password);
+        return "member_settings.html";
     }
 
     @GetMapping("/member_catalogue")
@@ -221,5 +249,13 @@ public class LibraryController
 
             return "reservation.html";
         }
+    }
+
+    //----Methods relating to librarians
+    @GetMapping("/librarian_home")
+    public String loadLibrarianHome(Model model)
+    {
+        model.addAttribute("name", librarianSession.getLibrarian().getUsername());
+        return "librarian_home.html";
     }
 }
