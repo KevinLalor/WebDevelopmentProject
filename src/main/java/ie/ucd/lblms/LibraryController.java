@@ -274,6 +274,44 @@ public class LibraryController
     public String viewNote(@PathVariable("id") String id, Model model) {
         long i = Long.parseLong(id);
         model.addAttribute("note", userRepository.findById(i));
+        model.addAttribute("name", userRepository.findById(i).getUsername());
+
+        List<Loan> userLoans = loanRepository.findByUserId(i);
+        List<Long> userLoanArtifactIds = new ArrayList<>();
+
+        for (Loan item : userLoans)
+        {
+            Long currentArtifactId = item.getArtifactId();
+
+            List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
+            for (Loan reservation : reservationsOnItem)
+            {
+                if (reservation.getReturnDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            }
+
+            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifactId()); }
+            else if (reservationsOnItem.size() == 2)
+            {
+
+                for (Loan reservation : reservationsOnItem)
+                {
+                    if (reservation.getUserId() == i)
+                    {
+                        if (reservation.getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifactId()); }
+                    }
+                }
+            }
+        }
+
+        model.addAttribute("userId", i);
+
+        model.addAttribute("currentUserArtifacts", artifactRepository.findByArtifactIdIn(userLoanArtifactIds));
+
+        if (userLoanArtifactIds.isEmpty())
+            model.addAttribute("catalogueArtifacts", artifactRepository.findAll());
+        else
+            model.addAttribute("catalogueArtifacts", artifactRepository.findByArtifactIdNotIn(userLoanArtifactIds));
+
         return "view_member.html";
     }
 }
