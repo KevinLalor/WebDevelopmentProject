@@ -25,17 +25,6 @@ public class AuthenticationController
     @Autowired
     private LibrarianSession librarianSession;
 
-    /*@GetMapping("/login")
-    public String login(Model model)
-    {
-        model.addAttribute("title", "BlogIt: Login");
-        if (userSession.isLoginFailed()) {
-            model.addAttribute("error", "Username and Password not correct");
-            userSession.setLoginFailed(false);
-        }
-        return "login.html";
-    }*/
-
     @GetMapping("/member_sign_in")
     public String memberSignInPage(Model model)
     {
