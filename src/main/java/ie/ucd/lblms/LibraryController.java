@@ -428,10 +428,40 @@ public class LibraryController
     }
 
     @GetMapping("/librarian_catalogue")
-    public String librarianCatalogueView()
+    public String librarianCatalogueView(Model model)
     {
+        long ID = 1;
+        model.addAttribute("note", userRepository.findById(ID));
+        model.addAttribute("name", userRepository.findById(ID).getUsername());
+
+        List<Loan> userLoans = loanRepository.findByUserId(ID);
+        List<Long> userLoanArtifactIds = new ArrayList<>();
+
+        for (int i = 0; i < userLoans.size(); i++)//for (Loan item : userLoans)
+        {
+            Long currentArtifactId = userLoans.get(i).getArtifactId();
+
+            List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
+            for (int k = 0; k < reservationsOnItem.size(); k++)//for (Loan reservation : reservationsOnItem)
+            {
+                if (reservationsOnItem.get(k).getReturnDate().isBefore(LocalDate.now()))
+                {
+                    reservationsOnItem.remove(k);
+                    k--;
+                }
+            }
+
+        }
+
+        model.addAttribute("currentUserArtifacts", artifactRepository.findByArtifactIdIn(userLoanArtifactIds));
+
+        if (userLoanArtifactIds.isEmpty())
+            model.addAttribute("catalogueArtifacts", artifactRepository.findAll());
+        else
+            model.addAttribute("catalogueArtifacts", artifactRepository.findByArtifactIdNotIn(userLoanArtifactIds));
+
+
         return "librarian_catalogue.html";
     }
-
 
 }
