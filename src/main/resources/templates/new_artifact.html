@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="icon" type="image/png" href="http://icongal.com/gallery/image/10773/books_learn_study_school.png">
-        <title>LB Library - Join Us</title>
+        <title>LB Library - New Artifact</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -15,26 +15,22 @@
     </head>
     <body>   
         <div class="background-image">
-            <div class="signup1-content-box">  
-                <form action="/join" method="post">             
+            <div class="signup-content-box">  
+                <form action="/create_artifact" method="get">             
                     <div class="container">
                         <div class="login-page-header">
                             <h1>LB Library</h1>
-                            <h2>Sign Up</h2>
+                            <h2>New Artifact</h2>
                         </div>
-                        <label for="username"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="username" required>
+                        <label for="title"><b>Title</b></label>
+                        <input type="text" placeholder="Enter Title" name="title" required>
                     
-                        <label for="password"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="password" required>
+                        <label for="mediaType"><b>Media Type</b></label>
+                        <input type="text" placeholder="Enter Media Type" name="mediaType" required>
                     
-                        <button type="submit">Sign Up</button>
+                        <button type="submit">Create</button>
                     </div>
                 </form>
-                <div class="container" style="background-color:#f1f1f1">
-                    <p>By creating an account you agree to our non-existant <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="color:dodgerblue" target="_blank">Terms & Privacy</a>.</p>
-                    <button type="submit" class="cancelbtn" onclick="window.location.href = '/';">Cancel</button>
-                </div>
             </div> 
         </div>
         <script src="" async defer></script>
