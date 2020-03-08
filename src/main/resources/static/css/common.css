@@ -16,6 +16,19 @@
   body, html {
     height: 100%;
   }
+
+  h1{
+    font-size: 2.5vw;
+  }
+
+  h2{
+    font-size: 2vw;
+  }
+
+  p{
+    font-size: 1.5vw;
+  }
+  
   .background-image {
     /* The image used */
     background-image: url("../images/main-page.jpg");
