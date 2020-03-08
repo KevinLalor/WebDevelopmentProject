@@ -586,5 +586,13 @@ public class LibraryController
         return "librarian_home.html";
     }
 
+    @GetMapping("/librarian_settings/{id}")
+    public String memberSettings(@PathVariable("id") String id, Model model)
+    {
+        long ID= Long.parseLong(id);
+        model.addAttribute("user", userRepository.findById(ID));
+        return "librarian_settings.html";
+    }
+
 
 }
