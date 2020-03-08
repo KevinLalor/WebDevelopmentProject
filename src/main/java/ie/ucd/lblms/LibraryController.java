@@ -27,6 +27,9 @@ public class LibraryController
     @Autowired
     private UserSession userSession;
 
+    @Autowired
+    private LibrarianSession librarianSession;
+
     @GetMapping("/")
     public String home() { return "index.html"; }
 
@@ -66,6 +69,13 @@ public class LibraryController
     {
         model.addAttribute("name", userSession.getUser().getUsername());
         return "member_home.html";
+    }
+
+    @GetMapping("/librarian_home")
+    public String loadLibrarianHome(Model model)
+    {
+        model.addAttribute("name", librarianSession.getLibrarian().getUsername());
+        return "librarian_home.html";
     }
 
     @GetMapping("/member_catalogue")
