@@ -27,11 +27,11 @@
   }
 
   .background-image-content-box{
-      background-color: #D8D8F6;
-      float: right;
-      width: 35%;
-      height: 100%;
-      overflow-y: scroll;
+    background-color: #D8D8F6;
+    float: right;
+    width: 35%;
+    height: 100%;
+    overflow-y: scroll;
   }
   .welcome-class{
     text-align: center;
@@ -45,44 +45,44 @@
     padding-right: 5%;
   }
   .list-group-item{
-      color: #494850;
-      transition: all 0.5s ease-in-out; 
+    color: #494850;
+    transition: all 0.5s ease-in-out; 
   }
   .list-group-item-action:hover{
     transform: scale(1.1);
   }
   .home-page-header{
-      color: #2C2C34;
-      text-align: center;
-      padding: 10%;
-      background-color:#B18FCF;
-      font-family: Simplifica;
+    color: #2C2C34;
+    text-align: center;
+    padding: 10%;
+    background-color:#B18FCF;
+    font-family: Simplifica;
       
-      width: 5px;
-      height: 5px;
-      position: relative;
-      background-color: red;
-      animation-name: main-header;
-      animation-duration: 2s;  
+    width: 5px;
+    height: 5px;
+    position: relative;
+    background-color: red;
+    animation-name: main-header;
+    animation-duration: 2s;  
   }
 
 /* Bordered form */
 .login-content-box{
-      background-color: #D8D8F6;
-      display: inline-block;
-      width: 33%;
-      height: 60%;
-      margin-top: 5%;
-      margin-left: 33%;
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 60%;
+  margin-top: 5%;
+  margin-left: 33%;
 }
 
 .signup-content-box{
-     background-color: #D8D8F6;
-     display: inline-block;
-     width: 33%;
-     height: 60%;
-     margin-top: 1%;
-     margin-left: 33%;
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 60%;
+  margin-top: 1%;
+  margin-left: 33%;
 
 }
 
@@ -157,12 +157,12 @@ span.psw {
 }
   
 .catalogue-content-box{
-      background-color: #D8D8F6;
-      display: inline-block;
-      width: 50%;
-      height: 100%;
-      margin-left: 25%;
-      overflow-y: scroll;
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  margin-left: 25%;
+  overflow-y: scroll;
 
 }
 
