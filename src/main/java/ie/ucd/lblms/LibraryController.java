@@ -357,6 +357,29 @@ public class LibraryController
 
         List<Loan> userLoans = loanRepository.findByUserId(ID);
         List<Long> userLoanArtifactIds = new ArrayList<>();
+        List<Loan> pastUserLoans = new ArrayList<Loan>();
+
+
+        for (int i = 0; i < userLoans.size(); i++)//for (Loan loan : allUserLoans)
+        {
+            if (userLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusDays(1)))
+                pastUserLoans.add(userLoans.get(i));
+        }
+
+        List<NamedLoan> pastUserLoansInfo = new ArrayList<NamedLoan>();
+
+        for (int i = 0; i < pastUserLoans.size(); i++)//for (Loan loan : pastUserLoans)
+        {
+            Optional<Artifact> currentArtifact = artifactRepository.findById(pastUserLoans.get(i).getArtifactId());
+            Long artifactId = pastUserLoans.get(i).getArtifactId();
+            String artifactName = currentArtifact.get().getTitle();
+            String artifactType = currentArtifact.get().getMediaType();
+            LocalDate returnDate = pastUserLoans.get(i).getReturnDate();
+
+            pastUserLoansInfo.add(new NamedLoan(artifactId, artifactName, artifactType, returnDate));
+        }
+
+        model.addAttribute("pastLoans", pastUserLoansInfo);
 
         for (int i = 0; i < userLoans.size(); i++)//for (Loan item : userLoans)
         {
