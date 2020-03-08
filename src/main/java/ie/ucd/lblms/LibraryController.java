@@ -431,5 +431,11 @@ public class LibraryController
         return "librarian_catalogue.html";
     }
 
+    @GetMapping("/search_for_members")
+    public String searchForMembers(@RequestParam(name="username") String username, Model model)
+    {
+        model.addAttribute("users", userRepository.findByUsernameContaining(username));
 
+        return "catalogue_of_members.html";
+    }
 }
