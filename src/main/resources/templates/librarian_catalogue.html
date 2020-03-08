@@ -24,32 +24,34 @@
             <a class="navbar-brand" href="/member_home"><img id="logo" src="/images/book.png"></a>
             <div>
                 <h1>LB Library Catalogue</h1>
-                <p>This is the profile of <span th:text="${name}"></span>. They are currently loaning: </p>
+                <p>Hi <span th:text="${name}"></span>. This is the full catalogue currently available at LB library.
+                    Click on the book icon to return to your homepage.</p>
             </div>
         </nav>
 
         <div class="row">
             <div class="col-lg-12 align-self-center">
+                <p>Search for Artifact:</p>
+                <form method="GET" action="/member_search">
+                    <input type="text" name="title">
+                </form>
+                <p>Catalogue:</p>
                 <table class="table">
                     <thead>
                     <tr>
                         <th>Title</th>
                         <th>Media Type</th>
                         <th></th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="artifact : ${currentUserArtifacts}">
+                    <tr th:each="artifact : ${catalogueArtifacts}">
                         <td th:text="${artifact.title}"></td>
                         <td th:text="${artifact.mediaType}"></td>
-                        <td><a th:href="@{/librarianRenew(artifactId=${artifact.artifactId})}"><button type="submit">Renew</button></a></td>
-                        <td><a th:href="@{/librarianReserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
+                        <td><a th:href="@{/reserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
                     </tr>
                     </tbody>
                 </table>
-                <link rel="stylesheet" href="css/common.css">
-                </head>
             </div>
         </div>
     </div>
