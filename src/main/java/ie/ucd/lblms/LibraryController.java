@@ -237,7 +237,7 @@ public class LibraryController
 
         if (artifactHistory.size() == 1)
         {
-            loanRepository.setFixedReturnDateFor(artifactHistory.get(0).getLoanId());
+            //loanRepository.setFixedReturnDateFor(artifactHistory.get(0).getLoanId());
             model.addAttribute("message", "Renewal successful. Now due on ");
 
             return "reservation.html";
