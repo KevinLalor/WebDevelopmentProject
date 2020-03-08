@@ -71,6 +71,7 @@ public class LibraryController
     @GetMapping("/member_catalogue")
     public String memberCatalgoue(Model model) 
     {
+        /*
         List<Loan> userLoans = loanRepository.findByUserId(userSession.getUser().getUserId());
 
         List<Long> userLoanArtifactIds = new ArrayList<>();
@@ -87,6 +88,61 @@ public class LibraryController
 
         if (userLoans.isEmpty())
             model.addAttribute("catalogueArtifacts", artifactRepository.findAll());
+
+        return "member_catalogue.html";*/
+
+        ///---
+        List<Loan> userLoans = loanRepository.findByUserId(userSession.getUser().getUserId());
+
+        List<Long> userLoanArtifactIds = new ArrayList<>();
+
+        for (Loan item : userLoans)
+        {
+            Long currentArtifactId = item.getArtifact();
+
+
+            // New Stuff
+            List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
+            for (Loan reservation : reservationsOnItem)
+            {
+                if (reservation.getDueDate().isBefore(LocalDate.now()))
+                {
+                    reservationsOnItem.remove(reservation);
+                }
+            }
+            // Should now only have either 0 or 1 or 2 reservations. One pssible current loan and one possible future.
+            if (reservationsOnItem.size() == 1)
+            {
+                System.out.println("It's the only reservation.");
+                userLoanArtifactIds.add(item.getArtifact());
+            }
+            else if (reservationsOnItem.size() == 2)
+            {
+                for (Loan reservation : reservationsOnItem)
+                {
+                    if (reservation.getMember() == userSession.getUser().getUserId())
+                    {
+                        // If the current user's reservation is within two weeks, then it is the current loan, and the other one is the future reservation.
+                        if (reservation.getDueDate().isBefore(LocalDate.now().plusWeeks(2)))
+                        {
+                            userLoanArtifactIds.add(item.getArtifact());
+                            System.out.println("It's the current reservation.");
+                        }
+                    }
+                }
+            }
+            //-----
+        }
+
+        model.addAttribute("name", userSession.getUser().getUsername());
+        model.addAttribute("userId", userSession.getUser().getUserId());
+
+        model.addAttribute("currentUserArtifacts", artifactRepository.findByArtifactIdIn(userLoanArtifactIds));
+
+        if (userLoanArtifactIds.isEmpty())
+            model.addAttribute("catalogueArtifacts", artifactRepository.findAll());
+        else
+            model.addAttribute("catalogueArtifacts", artifactRepository.findByArtifactIdNotIn(userLoanArtifactIds));
 
         return "member_catalogue.html";
     }
@@ -112,34 +168,40 @@ public class LibraryController
                     reservationsOnItem.remove(reservation);
                 }
             }
+            // Should now only have either 0 or 1 or 2 reservations. One pssible current loan and one possible future.
 
             if (reservationsOnItem.size() == 1)
-                userLoanArtifactIds.add(item.getArtifact());
-            else
             {
-                Loan thisUserReservation = new Loan(0l, 0l);
-                Loan otherUserReservation = new Loan(0l, 0l);
+                System.out.println("It's the only reservation.");
+                userLoanArtifactIds.add(item.getArtifact());
+            }
+            else if (reservationsOnItem.size() == 2)
+            {
                 for (Loan reservation : reservationsOnItem)
                 {
                     if (reservation.getMember() == userSession.getUser().getUserId())
-                        thisUserReservation = reservation;
-                    else
-                        otherUserReservation = reservation;
+                    {
+                        // If the current user's reservation is within two weeks, then it is the current loan, and the other one is the future reservation.
+                        if (reservation.getDueDate().isBefore(LocalDate.now().plusWeeks(2)))
+                        {
+                            userLoanArtifactIds.add(item.getArtifact());
+                            System.out.println("It's the current reservation.");
+                        }
+                    }
                 }
-
-                if (thisUserReservation.getDueDate().isBefore(otherUserReservation.getDueDate()))
-                    userLoanArtifactIds.add(item.getArtifact()); 
             }
             //-----
         }
 
         model.addAttribute("name", userSession.getUser().getUsername());
         model.addAttribute("userId", userSession.getUser().getUserId());
-        model.addAttribute("currentUserArtifacts", artifactRepository.findByArtifactIdInAndTitleContaining(userLoanArtifactIds, title));
-        model.addAttribute("catalogueArtifacts", artifactRepository.findByArtifactIdNotInAndTitleContaining(userLoanArtifactIds, title));
 
-        if (userLoans.isEmpty())
+        model.addAttribute("currentUserArtifacts", artifactRepository.findByArtifactIdInAndTitleContaining(userLoanArtifactIds, title));
+
+        if (userLoanArtifactIds.isEmpty())
             model.addAttribute("catalogueArtifacts", artifactRepository.findAll());
+        else
+            model.addAttribute("catalogueArtifacts", artifactRepository.findByArtifactIdNotInAndTitleContaining(userLoanArtifactIds, title));
 
         return "member_catalogue.html";
     }
@@ -173,6 +235,10 @@ public class LibraryController
             loanRepository.save(aLoan);
             return "reservation.html";
         }
-        return "hello world";
+        else
+        {
+            model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on" + artifactHistory.get(0).getDueDate().toString());
+            return "reservation.html";
+        }
     }
 }
