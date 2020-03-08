@@ -1,7 +1,7 @@
 INSERT INTO users (username, password)
 VALUES 
     ('member1', '123'),
-    ('staff1', 'abc';
+    ('member2', 'abc');
 
 INSERT INTO artifacts (title, media_type)
 VALUES 
@@ -16,6 +16,6 @@ VALUES
     ('bunreacht na heireann', 'book'),
     ('airplane!', 'film');
 
-INSERT INTO loans (artifact_id, due_date, user_id)
+INSERT INTO loans (artifact_id, return_date, user_id)
 VALUES 
     (1, 20200310, 1);

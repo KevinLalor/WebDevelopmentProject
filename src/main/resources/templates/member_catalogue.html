@@ -40,7 +40,7 @@
                                 <tr th:each="user_artifact : ${currentUserArtifacts}">
                                     <td th:text="${user_artifact.title}"></td>
                                     <td th:text="${user_artifact.mediaType}"></td>
-                                    <td><a th:href="@{/renew(artifactId=${artifact.artifactId})}"><button type="submit" >Renew</button></a></td>
+                                    <td><a th:href="@{/renew(artifactId=${user_artifact.artifactId})}"><button type="submit" >Renew</button></a></td>
                                 </tr>
                             </tbody>
                         </table>
