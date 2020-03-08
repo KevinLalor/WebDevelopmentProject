@@ -6,10 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.time.LocalDate;
 
 @Controller
@@ -170,9 +173,7 @@ public class LibraryController
             
             if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifactId()); }
             else if (reservationsOnItem.size() == 2)
-            {
-                Long currentUserId = userSession.getUser().getUserId();
-                    
+            {  
                 for (Loan reservation : reservationsOnItem)
                 {
                     if (reservation.getUserId() == userSession.getUser().getUserId())
@@ -251,7 +252,45 @@ public class LibraryController
         }
     }
 
-    //----Methods relating to librarians
+    @GetMapping("/member_loans")
+    public String viewLoans(Model model)
+    {
+        List<Loan> allUserLoans = loanRepository.findByUserId(userSession.getUser().getUserId());
+        List<Loan> pastUserLoans = new ArrayList<Loan>();
+        List<Loan> currentUserLoans = new ArrayList<Loan>();
+        List<Loan> futureUserLoans = new ArrayList<Loan>();
+        
+        for (Loan loan : allUserLoans)
+        {
+            if (loan.getReturnDate().isBefore(LocalDate.now()))
+                pastUserLoans.add(loan);
+            else if (loan.getReturnDate().isBefore(LocalDate.now().plusWeeks(2)))
+                currentUserLoans.add(loan);
+            else
+                futureUserLoans.add(loan);
+        }
+
+        List<NamedLoan> pastUserLoansInfo = new ArrayList<NamedLoan>();
+        List<NamedLoan> currentUserLoansInfo = new ArrayList<NamedLoan>();
+        List<NamedLoan> futureUserLoansInfo = new ArrayList<NamedLoan>();
+
+        for (Loan loan : pastUserLoans)
+        {
+            Optional<Artifact> currentArtifact = artifactRepository.findById(loan.getArtifactId());
+            Long artifactId = loan.getArtifactId();
+            String artifactName = currentArtifact.get().getTitle();
+            String artifactType = currentArtifact.get().getMediaType();
+            LocalDate returnDate = loan.getReturnDate();
+
+            pastUserLoansInfo.add(new NamedLoan(artifactId, artifactName, artifactType, returnDate));
+        }
+
+        model.addAttribute("name", userSession.getUser().getUsername());
+        model.addAttribute("pastLoans", pastUserLoansInfo);
+        return "member_loans.html";
+    }
+
+    //----- Methods relating to librarians
     @GetMapping("/librarian_home")
     public String loadLibrarianHome(Model model)
     {

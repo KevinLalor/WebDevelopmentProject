@@ -23,4 +23,5 @@ VALUES
 
 INSERT INTO loans (artifact_id, return_date, user_id)
 VALUES 
-    (1, 20200310, 1);
+    (1, 20200310, 1),
+    (5, 20190101, 1);

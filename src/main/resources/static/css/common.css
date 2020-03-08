@@ -151,4 +151,13 @@ span.psw {
   float: right;
   padding-top: 16px;
 }
-  
+
+
+.catalogue-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+
+  margin-left: 25%;
+}
