@@ -470,7 +470,6 @@ public class LibraryController
         return "catalogue_of_members.html";
     }
 
-<<<<<<< HEAD
     @GetMapping("/new_artifact")
     public String newArtifactPage()
     {
@@ -483,6 +482,4 @@ public class LibraryController
         artifactRepository.save(anArtifact);
         return "artifact_created.html";
     }
-=======
->>>>>>> 2876f0d909020a329d444575eb657282213adab3
 }
