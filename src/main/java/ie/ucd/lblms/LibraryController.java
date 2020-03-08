@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -417,14 +415,59 @@ public class LibraryController
             loanRepository.save(new Loan(currentLoan.getUserId(), currentLoan.getArtifactId(), currentLoan.getReturnDate().plusWeeks(2)));
             model.addAttribute("message", "Renewal successful. Now due on " + currentLoan.getReturnDate().plusWeeks(2));
 
-            return "reservation.html";
+            return "librarian_reservation.html";
         }
         else
         {
             model.addAttribute("message", "Currently fully reserved. Can be reserved again on " + artifactHistory.get(1).getReturnDate());
 
-            return "reservation.html";
+            return "librarian_reservation.html";
         }
+    }
+
+    @GetMapping("/librarian_catalogue")
+    public String librarianCatalogueView(Model model)
+    {
+        long ID = 1;
+        model.addAttribute("note", userRepository.findById(ID));
+        model.addAttribute("name", userRepository.findById(ID).getUsername());
+
+        List<Loan> userLoans = loanRepository.findByUserId(ID);
+        List<Long> userLoanArtifactIds = new ArrayList<>();
+
+        for (int i = 0; i < userLoans.size(); i++)//for (Loan item : userLoans)
+        {
+            Long currentArtifactId = userLoans.get(i).getArtifactId();
+
+            List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
+            for (int k = 0; k < reservationsOnItem.size(); k++)//for (Loan reservation : reservationsOnItem)
+            {
+                if (reservationsOnItem.get(k).getReturnDate().isBefore(LocalDate.now()))
+                {
+                    reservationsOnItem.remove(k);
+                    k--;
+                }
+            }
+
+        }
+
+        model.addAttribute("currentUserArtifacts", artifactRepository.findByArtifactIdIn(userLoanArtifactIds));
+
+        if (userLoanArtifactIds.isEmpty())
+            model.addAttribute("catalogueArtifacts", artifactRepository.findAll());
+        else
+            model.addAttribute("catalogueArtifacts", artifactRepository.findByArtifactIdNotIn(userLoanArtifactIds));
+
+
+        return "librarian_catalogue.html";
+    }
+
+    @GetMapping("/search_for_members")
+    public String searchForMembers(@RequestParam(name="username") String username, Model model)
+    {
+        model.addAttribute("users", userRepository.findByUsernameContaining(username));
+
+        return "catalogue_of_members.html";
     }
 
 }
