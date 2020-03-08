@@ -117,26 +117,30 @@ public class LibraryController
 
         List<Long> userLoanArtifactIds = new ArrayList<>();
 
-        for (Loan item : userLoans)
+        for (int i = 0; i < userLoans.size(); i++)//for (Loan item : userLoans)
         {
-            Long currentArtifactId = item.getArtifactId();
+            Long currentArtifactId = userLoans.get(i).getArtifactId();
 
             List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
-            for (Loan reservation : reservationsOnItem)
+            for (int k = 0; k < reservationsOnItem.size(); k++)//for (Loan reservation : reservationsOnItem)
             {
-                if (reservation.getReturnDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+                if (reservationsOnItem.get(k).getReturnDate().isBefore(LocalDate.now())) 
+                { 
+                    reservationsOnItem.remove(k); 
+                    k++;
+                }
             }
             
             // Should now only have either 0 or 1 or 2 reservations. One possible current loan and one possible future.
-            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifactId()); }
+            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(userLoans.get(i).getArtifactId()); }
             else if (reservationsOnItem.size() == 2)
             {
-                for (Loan reservation : reservationsOnItem)
+                for (int j = 0; j < reservationsOnItem.size(); j++)//for (Loan reservation : reservationsOnItem)
                 {
                     // If the current user's reservation is within two weeks, then it is the current loan, and the other one is the future reservation.
-                    if (reservation.getUserId() == userSession.getUser().getUserId())
+                    if (reservationsOnItem.get(j).getUserId() == userSession.getUser().getUserId())
                     {
-                        if (reservation.getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifactId()); }
+                        if (reservationsOnItem.get(j).getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(userLoans.get(i).getArtifactId()); }
                     }
                 }
             }
@@ -158,28 +162,32 @@ public class LibraryController
     @GetMapping("/member_search")
     public String searchMember(@RequestParam(name="title") String title, Model model)
     {
-        List<Loan> userLoans = loanRepository.findByUserId(userSession.getUser().getUserId());
+        List<Loan> userLoans = new ArrayList<Loan>(loanRepository.findByUserId(userSession.getUser().getUserId()));
 
         List<Long> userLoanArtifactIds = new ArrayList<>();
 
-        for (Loan item : userLoans)
+        for (int i = 0; i < userLoans.size(); i++)//for (Loan item : userLoans)
         {
-            Long currentArtifactId = item.getArtifactId();
+            Long currentArtifactId = userLoans.get(i).getArtifactId();
 
             List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
-            for (Loan reservation : reservationsOnItem)
+            for (int k = 0; k < reservationsOnItem.size(); k++)//for (Loan reservation : reservationsOnItem)
             {
-                if (reservation.getReturnDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+                if (reservationsOnItem.get(k).getReturnDate().isBefore(LocalDate.now())) 
+                { 
+                    reservationsOnItem.remove(k);
+                    k--; 
+                }
             }
             
-            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifactId()); }
+            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(userLoans.get(i).getArtifactId()); }
             else if (reservationsOnItem.size() == 2)
             {  
-                for (Loan reservation : reservationsOnItem)
+                for (int j = 0; j < reservationsOnItem.size(); j++)//for (Loan reservation : reservationsOnItem)
                 {
-                    if (reservation.getUserId() == userSession.getUser().getUserId())
+                    if (reservationsOnItem.get(j).getUserId() == userSession.getUser().getUserId())
                     {
-                        if (reservation.getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifactId()); }
+                        if (reservationsOnItem.get(j).getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(userLoans.get(i).getArtifactId()); }
                     }
                 }
             }
@@ -203,10 +211,16 @@ public class LibraryController
     {
         Long userId = userSession.getUser().getUserId();
 
-        List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
+        List<Loan> artifactHistory = new ArrayList<Loan>(loanRepository.findByArtifactId(artifactId));
 
-        for (Loan artifactLoan : artifactHistory)
-            if (artifactLoan.getReturnDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+        for (int i = 0; i < artifactHistory.size(); i++)//for (Loan artifactLoan : artifactHistory)
+        {
+            if (artifactHistory.get(i).getReturnDate().isBefore(LocalDate.now())) 
+            { 
+                artifactHistory.remove(i); 
+                i--;
+            }
+        }
 
         if (artifactHistory.isEmpty())
         {
@@ -232,16 +246,19 @@ public class LibraryController
     @GetMapping("/renew")
     public String renewItem(@RequestParam(name="artifactId") Long artifactId, Model model)
     {
-        List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
+        List<Loan> artifactHistory = new ArrayList<Loan>(loanRepository.findByArtifactId(artifactId));
 
-        for (Loan artifactLoan : artifactHistory)
-            if (artifactLoan.getReturnDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+        for (int i = 0; i < artifactHistory.size(); i++)//for (Loan artifactLoan : artifactHistory)
+        {
+            if (artifactHistory.get(i).getReturnDate().isBefore(LocalDate.now())) 
+            { 
+                artifactHistory.remove(i); 
+                i--;
+            }
+        }
 
         if (artifactHistory.size() == 1)
         {
-
-            //loanRepository.setFixedReturnDateFor(artifactHistory.get(0).getLoanId());
-            model.addAttribute("message", "Renewal successful. Now due on ");
             Loan currentLoan = artifactHistory.get(0);
             loanRepository.save(new Loan(currentLoan.getUserId(), currentLoan.getArtifactId(), currentLoan.getReturnDate().plusWeeks(2)));
             model.addAttribute("message", "Renewal successful. Now due on " + currentLoan.getReturnDate().plusWeeks(2));
@@ -259,32 +276,32 @@ public class LibraryController
     @GetMapping("/member_loans")
     public String viewLoans(Model model)
     {
-        List<Loan> allUserLoans = loanRepository.findByUserId(userSession.getUser().getUserId());
+        List<Loan> allUserLoans = new ArrayList<Loan>(loanRepository.findByUserId(userSession.getUser().getUserId()));
         List<Loan> pastUserLoans = new ArrayList<Loan>();
         List<Loan> currentUserLoans = new ArrayList<Loan>();
         List<Loan> futureUserLoans = new ArrayList<Loan>();
         
-        for (Loan loan : allUserLoans)
+        for (int i = 0; i < allUserLoans.size(); i++)//for (Loan loan : allUserLoans)
         {
-            if (loan.getReturnDate().isBefore(LocalDate.now()))
-                pastUserLoans.add(loan);
-            else if (loan.getReturnDate().isBefore(LocalDate.now().plusWeeks(2)))
-                currentUserLoans.add(loan);
+            if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now()))
+                pastUserLoans.add(allUserLoans.get(i));
+            else if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusWeeks(2)))
+                currentUserLoans.add(allUserLoans.get(i));
             else
-                futureUserLoans.add(loan);
+                futureUserLoans.add(allUserLoans.get(i));
         }
 
         List<NamedLoan> pastUserLoansInfo = new ArrayList<NamedLoan>();
         List<NamedLoan> currentUserLoansInfo = new ArrayList<NamedLoan>();
         List<NamedLoan> futureUserLoansInfo = new ArrayList<NamedLoan>();
 
-        for (Loan loan : pastUserLoans)
+        for (int i = 0; i < allUserLoans.size(); i++)//for (Loan loan : pastUserLoans)
         {
-            Optional<Artifact> currentArtifact = artifactRepository.findById(loan.getArtifactId());
-            Long artifactId = loan.getArtifactId();
+            Optional<Artifact> currentArtifact = artifactRepository.findById(allUserLoans.get(i).getArtifactId());
+            Long artifactId = allUserLoans.get(i).getArtifactId();
             String artifactName = currentArtifact.get().getTitle();
             String artifactType = currentArtifact.get().getMediaType();
-            LocalDate returnDate = loan.getReturnDate();
+            LocalDate returnDate = allUserLoans.get(i).getReturnDate();
 
             pastUserLoansInfo.add(new NamedLoan(artifactId, artifactName, artifactType, returnDate));
         }
