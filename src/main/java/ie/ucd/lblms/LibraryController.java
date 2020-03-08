@@ -283,7 +283,7 @@ public class LibraryController
         
         for (int i = 0; i < allUserLoans.size(); i++)//for (Loan loan : allUserLoans)
         {
-            if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now()))
+            if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusDays(1)))
                 pastUserLoans.add(allUserLoans.get(i));
             else if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusWeeks(2).plusDays(1)))
                 currentUserLoans.add(allUserLoans.get(i));
@@ -397,4 +397,34 @@ public class LibraryController
 
         return "view_member.html";
     }
+    @GetMapping("/librarianRenew")
+    public String librarianRenewItem(@RequestParam(name="artifactId") Long artifactId, Model model)
+    {
+        List<Loan> artifactHistory = new ArrayList<Loan>(loanRepository.findByArtifactId(artifactId));
+
+        for (int i = 0; i < artifactHistory.size(); i++)//for (Loan artifactLoan : artifactHistory)
+        {
+            if (artifactHistory.get(i).getReturnDate().isBefore(LocalDate.now()))
+            {
+                artifactHistory.remove(i);
+                i--;
+            }
+        }
+
+        if (artifactHistory.size() == 1)
+        {
+            Loan currentLoan = artifactHistory.get(0);
+            loanRepository.save(new Loan(currentLoan.getUserId(), currentLoan.getArtifactId(), currentLoan.getReturnDate().plusWeeks(2)));
+            model.addAttribute("message", "Renewal successful. Now due on " + currentLoan.getReturnDate().plusWeeks(2));
+
+            return "reservation.html";
+        }
+        else
+        {
+            model.addAttribute("message", "Currently fully reserved. Can be reserved again on " + artifactHistory.get(1).getReturnDate());
+
+            return "reservation.html";
+        }
+    }
+
 }

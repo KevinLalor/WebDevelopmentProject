@@ -36,13 +36,15 @@
                         <th>Title</th>
                         <th>Media Type</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="artifact : ${currentUserArtifacts}">
                         <td th:text="${artifact.title}"></td>
                         <td th:text="${artifact.mediaType}"></td>
-                        <td><a th:href="@{/reserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
+                        <td><a th:href="@{/renew(artifactId=${artifact.artifactId})}"><button type="submit">Renew</button></a></td>
+                        <td><a th:href="@{/librarianReserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
                     </tr>
                     </tbody>
                 </table>
