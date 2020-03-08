@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -462,6 +460,14 @@ public class LibraryController
 
 
         return "librarian_catalogue.html";
+    }
+
+    @GetMapping("/search_for_members")
+    public String searchForMembers(@RequestParam(name="username") String username, Model model)
+    {
+        model.addAttribute("users", userRepository.findByUsernameContaining(username));
+
+        return "catalogue_of_members.html";
     }
 
 }
