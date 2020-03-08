@@ -352,8 +352,79 @@ public class LibraryController
 
     @GetMapping("/view/{id}")
     public String viewNote(@PathVariable("id") String id, Model model) {
-        long i = Long.parseLong(id);
-        model.addAttribute("note", userRepository.findById(i));
+        long ID = Long.parseLong(id);
+        model.addAttribute("note", userRepository.findById(ID));
+        model.addAttribute("name", userRepository.findById(ID).getUsername());
+
+        List<Loan> userLoans = loanRepository.findByUserId(ID);
+        List<Long> userLoanArtifactIds = new ArrayList<>();
+
+        for (int i = 0; i < userLoans.size(); i++)//for (Loan item : userLoans)
+        {
+            Long currentArtifactId = userLoans.get(i).getArtifactId();
+
+            List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
+            for (int k = 0; k < reservationsOnItem.size(); k++)//for (Loan reservation : reservationsOnItem)
+            {
+                if (reservationsOnItem.get(k).getReturnDate().isBefore(LocalDate.now()))
+                {
+                    reservationsOnItem.remove(k);
+                    k--;
+                }
+            }
+
+            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(userLoans.get(i).getArtifactId()); }
+            else if (reservationsOnItem.size() == 2)
+            {
+                for (int j = 0; j < reservationsOnItem.size(); j++)//for (Loan reservation : reservationsOnItem)
+                {
+                    if (reservationsOnItem.get(j).getUserId() == ID)
+                    {
+                        if (reservationsOnItem.get(j).getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(userLoans.get(i).getArtifactId()); }
+                    }
+                }
+            }
+        }
+
+        model.addAttribute("userId", ID);
+
+        model.addAttribute("currentUserArtifacts", artifactRepository.findByArtifactIdIn(userLoanArtifactIds));
+
+        if (userLoanArtifactIds.isEmpty())
+            model.addAttribute("catalogueArtifacts", artifactRepository.findAll());
+        else
+            model.addAttribute("catalogueArtifacts", artifactRepository.findByArtifactIdNotIn(userLoanArtifactIds));
+
         return "view_member.html";
     }
+    @GetMapping("/librarianRenew")
+    public String librarianRenewItem(@RequestParam(name="artifactId") Long artifactId, Model model)
+    {
+        List<Loan> artifactHistory = new ArrayList<Loan>(loanRepository.findByArtifactId(artifactId));
+
+        for (int i = 0; i < artifactHistory.size(); i++)//for (Loan artifactLoan : artifactHistory)
+        {
+            if (artifactHistory.get(i).getReturnDate().isBefore(LocalDate.now()))
+            {
+                artifactHistory.remove(i);
+                i--;
+            }
+        }
+
+        if (artifactHistory.size() == 1)
+        {
+            Loan currentLoan = artifactHistory.get(0);
+            loanRepository.save(new Loan(currentLoan.getUserId(), currentLoan.getArtifactId(), currentLoan.getReturnDate().plusWeeks(2)));
+            model.addAttribute("message", "Renewal successful. Now due on " + currentLoan.getReturnDate().plusWeeks(2));
+
+            return "reservation.html";
+        }
+        else
+        {
+            model.addAttribute("message", "Currently fully reserved. Can be reserved again on " + artifactHistory.get(1).getReturnDate());
+
+            return "reservation.html";
+        }
+    }
+
 }
