@@ -8,18 +8,18 @@ VALUES
     ('lib1', '123'),
     ('lib2', 'abc');
 
-INSERT INTO artifacts (title, media_type)
+INSERT INTO artifacts (title, media_type, in_library)
 VALUES 
-    ('the lord of the rings', 'book'),
-    ('the shawshank redemption', 'film'),
-    ('1984', 'book'),
-    ('harry potter', 'book'),
-    ('carrying the fire', 'book'),
-    ('star wars', 'film'),
-    ('intro to cooking', 'book'),
-    ('the c programming language', 'book'),
-    ('bunreacht na heireann', 'book'),
-    ('airplane!', 'film');
+    ('the lord of the rings', 'book', 0),
+    ('the shawshank redemption', 'film', 1),
+    ('1984', 'book', 1),
+    ('harry potter', 'book', 1),
+    ('carrying the fire', 'book', 1),
+    ('star wars', 'film', 1),
+    ('intro to cooking', 'book', 1),
+    ('the c programming language', 'book', 1),
+    ('bunreacht na heireann', 'book', 1),
+    ('airplane!', 'film', 1);
 
 INSERT INTO loans (artifact_id, return_date, user_id)
 VALUES 
