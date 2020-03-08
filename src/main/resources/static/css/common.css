@@ -12,6 +12,7 @@
   75%  {background-color:green; left:0%; top:10%;}
   100% {background-color:red; left:0%; top:0%;}
 }
+
   body, html {
     height: 100%;
   }
@@ -151,6 +152,7 @@ span.psw {
   float: right;
   padding-top: 16px;
 }
+<<<<<<< HEAD
 
 
 .catalogue-content-box{
@@ -160,4 +162,24 @@ span.psw {
   height: 100%;
 
   margin-left: 25%;
+=======
+  
+.catalogue-content-box{
+      background-color: #D8D8F6;
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      margin-left: 25%;
+
+}
+
+.signup-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 40%;
+  margin-top: 13%;
+  margin-left: 33%;
+
+>>>>>>> d062a2497978f57ba05dc0e16286461e68b07a3f
 }

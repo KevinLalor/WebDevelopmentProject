@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<body>
+<nav class="navbar navbar-expand-lg header">
+    <a class="navbar-brand" href="/member_home"><img id="logo" src="/images/book.png"></a>
+    <div>
+        <h1>LB Members</h1>
+        <p>Hi <span th:text="${name}"></span>. This is the full catalogue of members currently active at LB library. Click on the book icon to return to your homepage.</p>
+    </div>
+</nav>
+<div class="catalogue">
+    <div class="catalogue">
+        <div class="row">
+            <div class="col-lg-12 align-self-center">
+                <form method="GET" action="/member_search">
+                    <input type="text" name="title">
+                </form>
+                <p>Users:</p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th></th>
+                    </tr>`
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.username}"></td>
+                        <td><a th:href="@{|/view/${user.userId}|}"><button class="btn btn-primary">View</button></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="" async defer></script>
+</body>
+</html>

@@ -3,6 +3,7 @@ package ie.ucd.lblms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -238,6 +239,9 @@ public class LibraryController
 
         if (artifactHistory.size() == 1)
         {
+
+            //loanRepository.setFixedReturnDateFor(artifactHistory.get(0).getLoanId());
+            model.addAttribute("message", "Renewal successful. Now due on ");
             Loan currentLoan = artifactHistory.get(0);
             loanRepository.save(new Loan(currentLoan.getUserId(), currentLoan.getArtifactId(), currentLoan.getReturnDate().plusWeeks(2)));
             model.addAttribute("message", "Renewal successful. Now due on " + currentLoan.getReturnDate().plusWeeks(2));
@@ -296,5 +300,19 @@ public class LibraryController
     {
         model.addAttribute("name", librarianSession.getLibrarian().getUsername());
         return "librarian_home.html";
+    }
+
+    @GetMapping("/catalogue_of_members")
+    public String searchMembers(Model model)
+    {
+        model.addAttribute("users", userRepository.findAll());
+        return "catalogue_of_members.html";
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewNote(@PathVariable("id") String id, Model model) {
+        long i = Long.parseLong(id);
+        model.addAttribute("note", userRepository.findById(i));
+        return "view_member.html";
     }
 }
