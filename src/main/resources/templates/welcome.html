@@ -2,32 +2,37 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="icon" type="image/png" href="http://icongal.com/gallery/image/10773/books_learn_study_school.png">
-        <title>LB Library - Welcome</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="http://icongal.com/gallery/image/10773/books_learn_study_school.png">
+    <title>LB Library - Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/common.css">
-    </head>
-    <body>   
-        <div class="background-image">
-            <div class="signup-content-box">  
-                <form action="/join" method="post">             
-                    <div class="container">
-                        <div class="login-page-header">
-                            <h1>LB Library</h1>
-                            <h2>Thank you for joining <span th:text="${name}"></span>.</h2>
-                        </div>
-                        <button type="submit" onclick="window.location.href = '/';">Return to Home</button>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+    <div class="background-image">
+        <div class="signup-content-box">
+            <form action="/join" method="post">
+                <div class="container">
+                    <div class="login-page-header">
+                        <h1>LB Library</h1>
+                        <h2>Thank you for joining <span th:text="${name}"></span>.</h2>
                     </div>
-                </form>
-                
-            </div> 
+                    <button type="submit" onclick="window.location.href = '/';">Return to Home</button>
+                </div>
+            </form>
+
         </div>
-        <script src="" async defer></script>
-    </body>
+    </div>
+    <script src="" async defer></script>
+</body>
+
 </html>

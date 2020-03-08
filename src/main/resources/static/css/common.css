@@ -23,12 +23,15 @@
     /* Center and scale the image nicely */
     background-position: center;
     background-size: cover;
+    overflow-y: scroll;    
   }
+
   .background-image-content-box{
       background-color: #D8D8F6;
       float: right;
       width: 35%;
       height: 100%;
+      overflow-y: scroll;
   }
   .welcome-class{
     text-align: center;
@@ -159,6 +162,7 @@ span.psw {
       width: 50%;
       height: 100%;
       margin-left: 25%;
+      overflow-y: scroll;
 
 }
 
@@ -168,6 +172,16 @@ span.psw {
   width: 33%;
   height: 40%;
   margin-top: 13%;
+  margin-left: 33%;
+
+}
+
+.signup1-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 40%;
+  margin-top: 1%;
   margin-left: 33%;
 
 }
