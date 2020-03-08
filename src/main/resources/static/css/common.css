@@ -28,6 +28,10 @@
   p{
     font-size: 1.5vw;
   }
+
+  .row{
+    font-size: 1vw;
+  }
   
   .background-image {
     /* The image used */
@@ -172,10 +176,11 @@ span.psw {
 .catalogue-content-box{
   background-color: #D8D8F6;
   display: inline-block;
-  width: 50%;
+  width: 80%;
   height: 100%;
-  margin-left: 25%;
+  margin-left: 10%;
   overflow-y: scroll;
+  padding: 1%;
 
 }
 
