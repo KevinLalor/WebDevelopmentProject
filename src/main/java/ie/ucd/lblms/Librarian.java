@@ -2,24 +2,24 @@ package ie.ucd.lblms;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User
+@Table(name = "librarians")
+public class Librarian
 {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long userId;
+    private Long librarianId;
     private String username;
     private String password;
-    
-    public User() { }
 
-    public User(String username, String password)
+    public Librarian() { }
+
+    public Librarian(String username, String password)
     {
         this.username = username;
         this.password = password;
     }
 
-    public Long getUserId() { return userId; }
+    public Long getLibrarianId() { return librarianId; }
 
     public String getPassword() { return password; }
 

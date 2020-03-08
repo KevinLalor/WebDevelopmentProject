@@ -17,7 +17,13 @@ public class AuthenticationController
     private UserRepository userRepository;
 
     @Autowired
+    private LibrarianRepository librarianRepository;
+
+    @Autowired
     private UserSession userSession;
+
+    @Autowired
+    private LibrarianSession librarianSession;
 
     /*@GetMapping("/login")
     public String login(Model model)
@@ -40,6 +46,16 @@ public class AuthenticationController
         return "member_login.html";
     }
 
+    @GetMapping("/librarian_sign_in")
+    public String librarianSignInPage(Model model)
+    {
+        if (!librarianSession.isLoginSuccess()) {
+            model.addAttribute("error", "Username and Password not correct");
+            librarianSession.setLoginSuccess(true);
+        }
+        return "librarian_login.html";
+    }
+
     //---------
 
     @PostMapping("/member_login_attempt")
@@ -58,8 +74,25 @@ public class AuthenticationController
 
     }
 
+    @PostMapping("/librarian_login_attempt")
+    public void doLibrarianLogin(String username, String password, HttpServletResponse response) throws Exception {
+        Optional<Librarian> librarian = librarianRepository.findLibrarianByUsernameAndPassword(username, password);
+        if (librarian.isPresent())
+        {
+            librarianSession.setLibrarian(librarian.get());
+            response.sendRedirect("/librarian_home");
+        }
+        else
+        {
+            librarianSession.setLoginSuccess(false);
+            response.sendRedirect("/librarian_sign_in");
+        }
+
+    }
+
     @GetMapping("/logout")
     public void logout(HttpServletResponse response) throws Exception {
+        librarianSession.setLibrarian(null);
         userSession.setUser(null);
         response.sendRedirect("/");
     }
