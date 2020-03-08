@@ -27,6 +27,9 @@ public class LibraryController
     @Autowired
     private UserSession userSession;
 
+    @Autowired
+    private LibrarianSession librarianSession;
+
     @GetMapping("/")
     public String home() { return "index.html"; }
 
@@ -66,6 +69,13 @@ public class LibraryController
     {
         model.addAttribute("name", userSession.getUser().getUsername());
         return "member_home.html";
+    }
+
+    @GetMapping("/librarian_home")
+    public String loadLibrarianHome(Model model)
+    {
+        model.addAttribute("name", librarianSession.getLibrarian().getUsername());
+        return "librarian_home.html";
     }
 
     @GetMapping("/member_catalogue")
@@ -175,6 +185,30 @@ public class LibraryController
         else
         {
             model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on " + artifactHistory.get(0).getDueDate().toString());
+            return "reservation.html";
+        }
+    }
+
+    @GetMapping("/renew")
+    public String renewItem(@RequestParam(name="artifactId") Long artifactId, Model model)
+    {
+        Long userId = userSession.getUser().getUserId();
+
+        List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
+
+        for (Loan artifactLoan : artifactHistory)
+            if (artifactLoan.getDueDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+
+        if (artifactHistory.size() == 1)
+        {
+            model.addAttribute("message", "Renewal successful. Now due on ");
+
+            return "reservation.html";
+        }
+        else
+        {
+            model.addAttribute("message", "Currently reserved by another member. Can be reservaed again on ");
+
             return "reservation.html";
         }
     }

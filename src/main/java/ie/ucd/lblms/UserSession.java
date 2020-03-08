@@ -9,10 +9,7 @@ public class UserSession {
     private User user;
     private boolean loginSuccess;
 
-    public UserSession()
-    {
-        loginSuccess = true;
-    }
+    public UserSession() { loginSuccess = true; }
 
     public User getUser() { return user; }
 
