@@ -499,4 +499,32 @@ public class LibraryController
         artifactRepository.save(anArtifact);
         return "artifact_created.html";
     }
+    
+    @GetMapping("/delete_artifact")
+    public String createArtifact(@RequestParam(name="artifactId") Long artifactId, Model model)
+    {
+        List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
+        boolean stillOnLoan = false;
+
+        for (int i = 0; i < artifactHistory.size(); i++)
+        {
+            if (artifactHistory.get(i).getReturnDate().isAfter(LocalDate.now().minusDays(1)))
+            {
+                stillOnLoan = true;
+            }
+        }
+
+        if (!stillOnLoan)
+        {
+            artifactRepository.removeByArtifactId(artifactId);
+            loanRepository.removeByArtifactId(artifactId);
+            model.addAttribute("message", "Item successfully removed");
+            return "artifact_deleted.html";
+        }
+        else
+        {
+            model.addAttribute("message", "Item currently reserved, so cannot be deleted");
+            return "artifact_deleted.html";
+        }
+    }
 }
