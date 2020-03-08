@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -479,13 +480,6 @@ public class LibraryController
         return "librarian_catalogue.html";
     }
 
-    @GetMapping("/librarian_reserve")
-    public String ReserveItem()
-    {
-        return "librarian_reserve.html";
-    }
-
-
 
     @GetMapping("/new_artifact")
     public String newArtifactPage()
@@ -528,6 +522,7 @@ public class LibraryController
         }
     }
 
+<<<<<<< HEAD
     @GetMapping("/lib_change_loan_status")
     public RedirectView changeLoanStatus(@RequestParam(name="artifactId") Long artifactId)
     {
@@ -538,4 +533,51 @@ public class LibraryController
         artifactRepository.save(updatedArtifact);
         return new RedirectView("/librarian_catalogue");
     }
+=======
+    @GetMapping("/librarianReserved/{id}")
+    public String reservedByLibrarian(@PathVariable("id") String id, Model model)
+    {
+        long ID = Long.parseLong(id);
+        model.addAttribute("name", artifactRepository.findById(ID).getTitle());
+
+        return "librarian_reserve.html";
+    }
+
+    @PostMapping("/reservedByLibrarian")
+    public String libReserve(String username, Long artifactId, Model model)
+    {
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isPresent()) {
+            Long userId = user.get().getUserId();
+
+            List<Loan> artifactHistory = new ArrayList<Loan>(loanRepository.findByArtifactId(artifactId));
+
+            for (int i = 0; i < artifactHistory.size(); i++)//for (Loan artifactLoan : artifactHistory)
+            {
+                if (artifactHistory.get(i).getReturnDate().isBefore(LocalDate.now())) {
+                    artifactHistory.remove(i);
+                    i--;
+                }
+            }
+
+            if (artifactHistory.isEmpty()) {
+                loanRepository.save(new Loan(userId, artifactId));
+                model.addAttribute("message", "Reservation successful.");
+                return "librarian_reservation.html";
+            } else if (artifactHistory.size() == 1) {
+                model.addAttribute("message", "Currently out on loan. Reservation successful for when it returns on " + artifactHistory.get(0).getReturnDate().toString());
+                Loan aLoan = new Loan(userId, artifactId);
+                aLoan.renew();
+                loanRepository.save(aLoan);
+                return "librarian_reservation.html";
+            } else {
+                model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on " + artifactHistory.get(1).getReturnDate().toString());
+                return "librarian_reservation.html";
+            }
+        }
+        return "librarian_home.html";
+    }
+
+
+>>>>>>> added ability for librarians to reserve artifacts for members
 }

@@ -16,6 +16,10 @@ public interface ArtifactRepository extends JpaRepository<Artifact, Long>
     List<Artifact> findByArtifactIdInAndTitleContaining(List<Long> artifactId, String title);
     List<Artifact> findByArtifactIdNotInAndTitleContaining(List<Long> artifactId, String title);
 
+
+    Artifact findById(long ID);
+
     @Transactional
     Long removeByArtifactId(Long artifactId);
+
 }
