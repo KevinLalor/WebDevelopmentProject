@@ -12,6 +12,7 @@
   75%  {background-color:green; left:0%; top:10%;}
   100% {background-color:red; left:0%; top:0%;}
 }
+
   body, html {
     height: 100%;
   }
@@ -152,3 +153,21 @@ span.psw {
   padding-top: 16px;
 }
   
+.catalogue-content-box{
+      background-color: #D8D8F6;
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      margin-left: 25%;
+
+}
+
+.signup-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 40%;
+  margin-top: 13%;
+  margin-left: 33%;
+
+}
