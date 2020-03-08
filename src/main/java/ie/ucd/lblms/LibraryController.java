@@ -33,7 +33,7 @@ public class LibraryController
     //----- Methods Related to Public Features
 
     @GetMapping("/public_catalogue")
-    public String publicCatalgoue(Model model) 
+    public String publicCatalogue(Model model)
     {
         model.addAttribute("artifacts", artifactRepository.findAll());
         return "public_catalogue.html"; 
@@ -69,7 +69,7 @@ public class LibraryController
     }
 
     @GetMapping("/member_catalogue")
-    public String memberCatalgoue(Model model) 
+    public String memberCatalogue(Model model)
     {
         List<Loan> userLoans = loanRepository.findByUserId(userSession.getUser().getUserId());
 
