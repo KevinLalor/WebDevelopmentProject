@@ -16,13 +16,13 @@
     <body>   
         <div class="background-image">
             <div class="signup-content-box">  
-                <form action="/join" method="post">             
+                <form action="/" method="get">             
                     <div class="container">
                         <div class="login-page-header">
                             <h1>LB Library</h1>
-                            <h2>Thank you for joining <span th:text="${name}"></span>.</h2>
+                            <h2>Thank you for joining! You can log in with those details now.</h2>
                         </div>
-                        <button type="submit" onclick="window.location.href = '/';">Return to Home</button>
+                        <a href="/"><button type="submit">Return to Home</button></a>
                     </div>
                 </form>
                 
