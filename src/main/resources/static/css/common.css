@@ -152,17 +152,6 @@ span.psw {
   float: right;
   padding-top: 16px;
 }
-<<<<<<< HEAD
-
-
-.catalogue-content-box{
-  background-color: #D8D8F6;
-  display: inline-block;
-  width: 50%;
-  height: 100%;
-
-  margin-left: 25%;
-=======
   
 .catalogue-content-box{
       background-color: #D8D8F6;
@@ -181,5 +170,4 @@ span.psw {
   margin-top: 13%;
   margin-left: 33%;
 
->>>>>>> d062a2497978f57ba05dc0e16286461e68b07a3f
 }

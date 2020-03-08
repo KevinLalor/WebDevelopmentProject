@@ -11,6 +11,7 @@ public class Artifact
     private Long artifactId;
     private String title;
     private String mediaType;
+    private boolean inLibrary;
 
     public Artifact() { }
 
@@ -18,6 +19,7 @@ public class Artifact
     {
         this.title = title;
         this.mediaType = mediaType;
+        this.inLibrary = true;
     }
 
     public Long getArtifactId() { return artifactId; }
@@ -29,4 +31,8 @@ public class Artifact
     public String getMediaType() { return mediaType; }
     
     public void setMediaType(String mediaType) { this.mediaType = mediaType; }
+
+    public boolean getInLibrary() { return inLibrary; }
+
+    public void setInLibrary(boolean inLibrary) { this.inLibrary = inLibrary; }
 }
