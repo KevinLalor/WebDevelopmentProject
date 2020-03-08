@@ -40,7 +40,7 @@
                                 <tr th:each="user_artifact : ${currentUserArtifacts}">
                                     <td th:text="${user_artifact.title}"></td>
                                     <td th:text="${user_artifact.mediaType}"></td>
-                                    <td><button type="submit" href="#">Renew</button></td>
+                                    <td><a th:href="@{/renew(artifactId=${artifact.artifactId})}"><button type="submit" >Renew</button></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -57,9 +57,7 @@
                                 <tr th:each="artifact : ${catalogueArtifacts}"> 
                                     <td th:text="${artifact.title}"></td>
                                     <td th:text="${artifact.mediaType}"></td>
-                                    <td>
-                                        <a type="submit" th:href="@{/reserve(artifactId=${artifact.artifactId})}"><button>Reserve</button></a>
-                                    </td>
+                                    <td><a th:href="@{/reserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
                                 </tr>
                             </tbody>
                         </table>

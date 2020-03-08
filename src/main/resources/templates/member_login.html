@@ -12,36 +12,32 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="css/common.css">
     </head>
-    <body>
-       
+    <body>   
         <div class="background-image">
             <div class="login-content-box"> 
-                
-             <form action="/member_login_attempt" method="post">             
-                
-                <div class="container">
+                <form action="/member_login_attempt" method="post">             
+                    <div class="container">
+                        <div class="login-page-header">
+                            <h1>LB Library</h1>
+                            <h2>Member Login</h2>
+                        </div>
+
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="username" required>
                     
-                    <div class="login-page-header">
-                        <h1>LB Library</h1>
-                        <h2>Member Login</h2>
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="password" required>
+                
+                        <button type="submit">Login</button>
+
+                        <p style="color:red;" th:text="${error}"></p>
                     </div>
-
-                   <label for="username"><b>Username</b></label>
-                   <input type="text" placeholder="Enter Username" name="username" required>
-              
-                   <label for="password"><b>Password</b></label>
-                   <input type="password" placeholder="Enter Password" name="password" required>
-              
-                    <button type="submit">Login</button>
-
-                    <p style="color:red;" th:text="${error}"></p>
-                </div>
-              
-                <div class="container" style="background-color:#f1f1f1">
-                    <a href="/"><button type="button" class="cancelbtn">Cancel</button></a>
-                    <span class="psw"><a href="https://www.youtube.com/watch?v=j6YzSltwfBE" target="_blank">Forgot password?</a></span>
-                 </div>
-              </form>
+                
+                    <div class="container" style="background-color:#f1f1f1">
+                        <a href="/"><button type="button" class="cancelbtn">Cancel</button></a>
+                        <span class="psw"><a href="https://www.youtube.com/watch?v=j6YzSltwfBE" target="_blank">Forgot password?</a></span>
+                    </div>
+                </form>
             </div> 
         </div>
         

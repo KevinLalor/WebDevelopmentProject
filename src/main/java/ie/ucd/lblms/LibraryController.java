@@ -178,4 +178,28 @@ public class LibraryController
             return "reservation.html";
         }
     }
+
+    @GetMapping("/renew")
+    public String renewItem(@RequestParam(name="artifactId") Long artifactId, Model model)
+    {
+        Long userId = userSession.getUser().getUserId();
+
+        List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
+
+        for (Loan artifactLoan : artifactHistory)
+            if (artifactLoan.getDueDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+
+        if (artifactHistory.size() == 1)
+        {
+            model.addAttribute("message", "Renewal successful. Now due on ");
+
+            return "reservation.html";
+        }
+        else
+        {
+            model.addAttribute("message", "Currently reserved by another member. Can be reservaed again on ");
+
+            return "reservation.html";
+        }
+    }
 }
