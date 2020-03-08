@@ -39,14 +39,12 @@
                             <tr>
                                 <th>Username</th>
                                 <th></th>
-                                <th></th>
                             </tr>`
                         </thead>
                         <tbody>
                             <tr th:each="user : ${users}">
                                 <td th:text="${user.username}"></td>
                                 <td><a th:href="@{|/view/${user.userId}|}"><button class="btn btn-primary">View</button></a></td>
-                                <td><a th:href="#"><button class="btn btn-primary">Delete</button></a></td>
                             </tr>
                         </tbody>
                     </table>

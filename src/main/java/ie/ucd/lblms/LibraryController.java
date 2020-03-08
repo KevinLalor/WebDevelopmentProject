@@ -470,4 +470,19 @@ public class LibraryController
         return "catalogue_of_members.html";
     }
 
+    @GetMapping("/search_for_items")
+    public String searchForItems(@RequestParam(name="title") String title, Model model)
+    {
+        model.addAttribute("catalogueArtifacts", artifactRepository.findByTitleContaining(title));
+
+        return "librarian_catalogue.html";
+    }
+
+    @GetMapping("/librarian_reserve")
+    public String ReserveItem()
+    {
+        return "librarian_reserve.html";
+    }
+
+
 }
