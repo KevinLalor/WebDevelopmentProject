@@ -1,7 +1,12 @@
 INSERT INTO users (username, password)
 VALUES 
     ('member1', '123'),
-    ('staff1', 'abc';
+    ('member2', 'abc');
+
+INSERT INTO librarians (username, password)
+VALUES
+    ('lib1', '123'),
+    ('lib2', 'abc');
 
 INSERT INTO artifacts (title, media_type)
 VALUES 
