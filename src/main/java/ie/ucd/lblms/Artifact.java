@@ -3,16 +3,13 @@ package ie.ucd.lblms;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "artifact")
+@Table (name = "artifacts")
 public class Artifact
 {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column (name = "artifact_id")
-    private Long id;
-    @Column (name = "title")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long artifactId;
     private String title;
-    @Column (name = "media_type")
     private String mediaType;
 
     public Artifact() { }
@@ -22,6 +19,8 @@ public class Artifact
         this.title = title;
         this.mediaType = mediaType;
     }
+
+    public Long getArtifactId() { return artifactId; }
     
     public String getTitle() { return title; }
 

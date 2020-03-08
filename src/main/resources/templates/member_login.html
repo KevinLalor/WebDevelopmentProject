@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Join Us</title>
+        <title>Member Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -15,35 +15,31 @@
     <body>
        
         <div class="background-image">
-            <div class="signup-content-box"> 
+            <div class="login-content-box"> 
                 
-             <form action="action_page.php" method="post">             
+             <form action="/member_login_attempt" method="post">             
                 
                 <div class="container">
                     
                     <div class="login-page-header">
                         <h1>LB Library</h1>
-                        <h2>Sign Up</h2>
+                        <h2>Member Login</h2>
                     </div>
 
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter Email" name="email" required>
-
-                   <label for="uname"><b>Username</b></label>
-                   <input type="text" placeholder="Enter Username" name="uname" required>
+                   <label for="username"><b>Username</b></label>
+                   <input type="text" placeholder="Enter Username" name="username" required>
               
-                   <label for="psw"><b>Password</b></label>
-                   <input type="password" placeholder="Enter Password" name="psw" required>
-
-                   <label for="psw-repeat"><b>Repeat Password</b></label>
-                   <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+                   <label for="password"><b>Password</b></label>
+                   <input type="password" placeholder="Enter Password" name="password" required>
               
-                    <button type="submit">Sign Up</button>
+                    <button type="submit">Login</button>
+
+                    <p style="color:red;" th:text="${error}"></p>
                 </div>
               
                 <div class="container" style="background-color:#f1f1f1">
-                    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-                    <button type="button" class="cancelbtn">Cancel</button>
+                    <a href="/"><button type="button" class="cancelbtn">Cancel</button></a>
+                    <span class="psw"><a href="https://www.youtube.com/watch?v=j6YzSltwfBE" target="_blank">Forgot password?</a></span>
                  </div>
               </form>
             </div> 

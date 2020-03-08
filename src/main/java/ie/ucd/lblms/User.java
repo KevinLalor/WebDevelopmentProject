@@ -1,42 +1,28 @@
 package ie.ucd.lblms;
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name = "users")
 public class User
 {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column (name = "user_id")
-    private Long id;
-    @Column (name = "user_name")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long userId;
     private String username;
-    @Column (name = "password")
     private String password;
-
-    /*
-    @ElementCollection
-    @CollectionTable(name = "user_current_loans", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "current_loan")
-    private List<Loan> currentLoans;
-    @ElementCollection
-    @CollectionTable(name = "user_past_loans", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "past_loan")
-    private List<Loan> loanHistory;*/
-    @Column(name = "librarian_status")
+    @Column(columnDefinition = "boolean default false")
     private boolean librarian;
-
+    
     public User() { }
 
-    public User(String username, String password, List<Loan> currentLoans, List<Loan> loanHistory, boolean librarian)
+    public User(String username, String password, boolean librarian)
     {
         this.username = username;
         this.password = password;
-        //this.currentLoans = currentLoans;
-        //this.loanHistory = loanHistory;
         this.librarian = librarian;
     }
+
+    public Long getUserId() { return userId; }
 
     public boolean getLibrarian() { return librarian; }
 
@@ -49,18 +35,4 @@ public class User
     public String getUsername() { return username; }
 
     public void setUsername(String username) { this.username = username; }
-    /*
-    public List<Loan> getCurrentLoans() { return currentLoans; }
-
-    public void setCurrentLoans(Loan newLoan) { currentLoans.add(newLoan); }
-
-    public List<Loan> getLoanHistory() { return loanHistory; }
-
-    public void setLoanHistory(Loan loan) { loanIsFinished(loan); }
-
-    public void loanIsFinished(Loan loan)
-    {
-        currentLoans.remove(loan);
-        loanHistory.add(loan);
-    }*/
 }

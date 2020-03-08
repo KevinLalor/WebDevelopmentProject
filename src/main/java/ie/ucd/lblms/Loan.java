@@ -4,44 +4,36 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table (name = "loan")
+@Table (name = "loans")
 public class Loan
 {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column (name= "loan_id")
-    private Long id;
-    @Column (name = "member")
-    private String member;
-    @Column (name = "artifact")
-    private String artifact;
-    @Column (name = "due_date")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long loanId;
+    private Long userId;
+    private Long artifactId;
     private LocalDate dueDate;
-    @Column (name = "completed")
-    private boolean completed;
 
     public Loan() { }
 
-    public Loan(String dueDate, boolean completed, String artifact)
+    public Loan(Long userId, Long artifactId)
     {
+        this.userId = userId;
+        this.artifactId = artifactId;
         this.dueDate = LocalDate.now().plusWeeks(2);
-        this.completed = completed;
-        this.artifact = artifact;
     }
 
-    public String getMember() { return member; }
+    public Long getMember() { return userId; }
 
-    public void setMember(String member) { this.member = member; }
+    public void setMember(Long userId) { this.userId = userId; }
 
-    public String getArtifact() { return artifact; }
+    public Long getArtifact() { return artifactId; }
 
-    public void setArtifact(String artifact) { this.artifact = artifact; }
+    public void setArtifact(Long artifactId) { this.artifactId = artifactId; }
 
-    public String getDueDate() { return dueDate.toString(); }
+    public LocalDate getDueDate() { return dueDate; }
 
     public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
 
-    public boolean getCompleted() { return completed; }
-
-    public void setCompleted(boolean completed) { this.completed = completed; }
+    public void renew() { dueDate = dueDate.plusWeeks(2); }
 }

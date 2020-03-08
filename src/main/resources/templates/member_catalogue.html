@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Member Catalogue</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/common.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg header">
+            <a class="navbar-brand" href="/member_home"><img id="logo" src="/images/book.png"></a>
+            <div>
+                <h1>LB Library Catalogue</h1>
+                <p>Hi <span th:text="${name}"></span>. This is the full catalgoue currently available at LB library. Click on the book icon to return to your homepage.</p>
+            </div>
+        </nav>
+        <div class="catalogue">
+            <div class="catalogue">
+                <div class="row">
+                    <div class="col-lg-12 align-self-center">
+                        <form method="GET" action="/member_search">
+                            <input type="text" name="title">
+                        </form>
+                        <p>You are Currently Loaning:</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Media Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="user_artifact : ${currentUserArtifacts}">
+                                    <td th:text="${user_artifact.title}"></td>
+                                    <td th:text="${user_artifact.mediaType}"></td>
+                                    <td><button type="submit" href="#">Renew</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Rest of Catalogue:</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Media Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="artifact : ${catalogueArtifacts}"> 
+                                    <td th:text="${artifact.title}"></td>
+                                    <td th:text="${artifact.mediaType}"></td>
+                                    <td>
+                                        <a type="submit" th:href="@{/reserve(artifactId=${artifact.artifactId})}"><button>Reserve</button></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="" async defer></script>
+    </body>
+</html>
