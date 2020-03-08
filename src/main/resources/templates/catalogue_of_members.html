@@ -2,43 +2,59 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="http://icongal.com/gallery/image/10773/books_learn_study_school.png">
+    <title>LB Library - Catalogue of Members</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/common.css">
+</head>
 
 <body>
-<nav class="navbar navbar-expand-lg header">
-    <a class="navbar-brand" href="/member_home"><img id="logo" src="/images/book.png"></a>
-    <div>
-        <h1>LB Members</h1>
-        <p>Hi <span th:text="${name}"></span>. This is the full catalogue of members currently active at LB library. Click on the book icon to return to your homepage.</p>
-    </div>
-</nav>
-<div class="catalogue">
-    <div class="catalogue">
-        <div class="row">
-            <div class="col-lg-12 align-self-center">
-                <form method="GET" action="/member_search">
-                    <input type="text" name="title">
-                </form>
-                <p>Users:</p>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th></th>
-                    </tr>`
-                    </thead>
-                    <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.username}"></td>
-                        <td><a th:href="@{|/view/${user.userId}|}"><button class="btn btn-primary">View</button></a></td>
-                    </tr>
-                    </tbody>
-                </table>
+    <div class="background-image">
+        <div class="catalogue-content-box">
+            <nav class="navbar navbar-expand-lg header">
+                <a class="navbar-brand" href="/member_home"><img id="logo" src="/images/book.png"></a>
+                <div>
+                    <h1>LB Members</h1>
+                    <p>Hi <span th:text="${name}"></span>. This is the full catalogue of members currently active at LB
+                        library. Click on the book icon to return to your homepage.</p>
+                </div>
+            </nav>
+            <div class="row">
+                <div class="col-lg-12 align-self-center">
+                    <form method="GET" action="/member_search">
+                        <input type="text" name="title">
+                    </form>
+                    <p>Users:</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th></th>
+                            </tr>`
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.username}"></td>
+                                <td><a th:href="@{|/view/${user.userId}|}"><button
+                                            class="btn btn-primary">View</button></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="" async defer></script>
+    <script src="" async defer></script>
 </body>
+
 </html>
