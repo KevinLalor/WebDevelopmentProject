@@ -30,6 +30,22 @@
 
         <div class="row">
             <div class="col-lg-12 align-self-center">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Media Type</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="artifact : ${currentUserArtifacts}">
+                        <td th:text="${artifact.title}"></td>
+                        <td th:text="${artifact.mediaType}"></td>
+                        <td><a th:href="@{/reserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
+                    </tr>
+                    </tbody>
+                </table>
                 <link rel="stylesheet" href="css/common.css">
                 </head>
             </div>
