@@ -2,11 +2,14 @@ INSERT INTO users (username, password)
 VALUES 
     ('member1', '123'),
     ('member2', 'abc');
+<<<<<<< HEAD
+=======
 
 INSERT INTO librarians (username, password)
 VALUES
     ('lib1', '123'),
     ('lib2', 'abc');
+>>>>>>> f1d27277b7f13b0bbd64c479075c4ba07c380493
 
 INSERT INTO artifacts (title, media_type)
 VALUES 
@@ -21,6 +24,6 @@ VALUES
     ('bunreacht na heireann', 'book'),
     ('airplane!', 'film');
 
-INSERT INTO loans (artifact_id, due_date, user_id)
+INSERT INTO loans (artifact_id, return_date, user_id)
 VALUES 
     (1, 20200310, 1);

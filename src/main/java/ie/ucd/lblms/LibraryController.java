@@ -119,7 +119,9 @@ public class LibraryController
 
             List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
             for (Loan reservation : reservationsOnItem)
-                if (reservation.getDueDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            {
+                if (reservation.getReturnDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            }
             
             // Should now only have either 0 or 1 or 2 reservations. One possible current loan and one possible future.
             if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifact()); }
@@ -129,7 +131,9 @@ public class LibraryController
                 {
                     // If the current user's reservation is within two weeks, then it is the current loan, and the other one is the future reservation.
                     if (reservation.getMember() == userSession.getUser().getUserId())
-                        if (reservation.getDueDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifact()); }
+                    {
+                        if (reservation.getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifact()); }
+                    }
                 }
             }
         }
@@ -160,7 +164,9 @@ public class LibraryController
 
             List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
             for (Loan reservation : reservationsOnItem)
-                if (reservation.getDueDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            {
+                if (reservation.getReturnDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            }
             
             if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifact()); }
             else if (reservationsOnItem.size() == 2)
@@ -168,7 +174,9 @@ public class LibraryController
                 for (Loan reservation : reservationsOnItem)
                 {
                     if (reservation.getMember() == userSession.getUser().getUserId())
-                        if (reservation.getDueDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifact()); }
+                    {
+                        if (reservation.getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifact()); }
+                    }
                 }
             }
         }
@@ -194,7 +202,7 @@ public class LibraryController
         List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
 
         for (Loan artifactLoan : artifactHistory)
-            if (artifactLoan.getDueDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+            if (artifactLoan.getReturnDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
 
         if (artifactHistory.isEmpty())
         {
@@ -204,7 +212,7 @@ public class LibraryController
         }
         else if (artifactHistory.size() == 1)
         {
-            model.addAttribute("message", "Currently out on loan. Reservation successful for when it returns on " + artifactHistory.get(0).getDueDate().toString());
+            model.addAttribute("message", "Currently out on loan. Reservation successful for when it returns on " + artifactHistory.get(0).getReturnDate().toString());
             Loan aLoan = new Loan(userId, artifactId);
             aLoan.renew();
             loanRepository.save(aLoan);
@@ -212,7 +220,7 @@ public class LibraryController
         }
         else
         {
-            model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on " + artifactHistory.get(0).getDueDate().toString());
+            model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on " + artifactHistory.get(0).getReturnDate().toString());
             return "reservation.html";
         }
     }
@@ -225,10 +233,11 @@ public class LibraryController
         List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
 
         for (Loan artifactLoan : artifactHistory)
-            if (artifactLoan.getDueDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+            if (artifactLoan.getReturnDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
 
         if (artifactHistory.size() == 1)
         {
+            loanRepository.setFixedReturnDateFor(artifactHistory.get(0).getLoanId());
             model.addAttribute("message", "Renewal successful. Now due on ");
 
             return "reservation.html";

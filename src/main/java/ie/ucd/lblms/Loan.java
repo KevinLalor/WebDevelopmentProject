@@ -12,7 +12,7 @@ public class Loan
     private Long loanId;
     private Long userId;
     private Long artifactId;
-    private LocalDate dueDate;
+    private LocalDate returnDate;
 
     public Loan() { }
 
@@ -20,8 +20,10 @@ public class Loan
     {
         this.userId = userId;
         this.artifactId = artifactId;
-        this.dueDate = LocalDate.now().plusWeeks(2);
+        this.returnDate = LocalDate.now().plusWeeks(2);
     }
+
+    public Long getLoanId() { return loanId; }
 
     public Long getMember() { return userId; }
 
@@ -31,9 +33,11 @@ public class Loan
 
     public void setArtifact(Long artifactId) { this.artifactId = artifactId; }
 
-    public LocalDate getDueDate() { return dueDate; }
+    public LocalDate getReturnDate() { return returnDate; }
 
-    public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
+    public void setDueDate(LocalDate dueDate) { this.returnDate = dueDate; }
 
-    public void renew() { dueDate = dueDate.plusWeeks(2); }
+    public void renew() { returnDate = returnDate.plusWeeks(2); }
+
+    public void returnItem() { returnDate = LocalDate.now(); }
 }
