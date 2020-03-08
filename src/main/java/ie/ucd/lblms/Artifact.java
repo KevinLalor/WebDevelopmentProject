@@ -15,7 +15,7 @@ public class Artifact
 
     public Artifact() { }
 
-    public Artifact(String title, String mediaType, int totalAvailable, int countOnLoan, boolean available)
+    public Artifact(String title, String mediaType)
     {
         this.title = title;
         this.mediaType = mediaType;
