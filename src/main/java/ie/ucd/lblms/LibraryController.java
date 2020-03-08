@@ -283,7 +283,7 @@ public class LibraryController
         
         for (int i = 0; i < allUserLoans.size(); i++)//for (Loan loan : allUserLoans)
         {
-            if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now()))
+            if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusDays(1)))
                 pastUserLoans.add(allUserLoans.get(i));
             else if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusWeeks(2).plusDays(1)))
                 currentUserLoans.add(allUserLoans.get(i));
