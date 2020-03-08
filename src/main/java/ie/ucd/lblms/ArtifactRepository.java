@@ -3,6 +3,7 @@ package ie.ucd.lblms;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArtifactRepository extends JpaRepository<Artifact, Long>
@@ -13,4 +14,6 @@ public interface ArtifactRepository extends JpaRepository<Artifact, Long>
 
     List<Artifact> findByArtifactIdInAndTitleContaining(List<Long> artifactId, String title);
     List<Artifact> findByArtifactIdNotInAndTitleContaining(List<Long> artifactId, String title);
+
+    Artifact findById(long ID);
 }
