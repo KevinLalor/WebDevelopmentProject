@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<<<<<<< HEAD
     <link rel="stylesheet" href="css/common.css">
 </head>
 
@@ -70,6 +71,60 @@
                             </tr>
                         </tbody>
                     </table>
+=======
+        <link rel="stylesheet" href="css/common.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg header">
+            <a class="navbar-brand" href="/member_home"><img id="logo" src="/images/book.png"></a>
+            <div>
+                <h1>LB Library Catalogue</h1>
+                <p>Hi <span th:text="${name}"></span>. This is the full catalgoue currently available at LB library. Click on the book icon to return to your homepage.</p>
+            </div>
+        </nav>
+        <div class="catalogue">
+            <div class="catalogue">
+                <div class="row">
+                    <div class="col-lg-12 align-self-center">
+                        <form method="GET" action="/member_search">
+                            <input type="text" name="title">
+                        </form>
+                        <p>You are Currently Loaning:</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Media Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="user_artifact : ${currentUserArtifacts}">
+                                    <td th:text="${user_artifact.title}"></td>
+                                    <td th:text="${user_artifact.mediaType}"></td>
+                                    <td><a th:href="@{/renew(artifactId=${user_artifact.artifactId})}"><button type="submit" >Renew</button></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Rest of Catalogue:</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Media Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="artifact : ${catalogueArtifacts}"> 
+                                    <td th:text="${artifact.title}"></td>
+                                    <td th:text="${artifact.mediaType}"></td>
+                                    <td><a th:href="@{/reserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+>>>>>>> 0c49d5d574271982f0b890b196e5e3b9394722bc
                 </div>
             </div>
         </div>

@@ -21,6 +21,6 @@ VALUES
     ('bunreacht na heireann', 'book'),
     ('airplane!', 'film');
 
-INSERT INTO loans (artifact_id, due_date, user_id)
+INSERT INTO loans (artifact_id, return_date, user_id)
 VALUES 
     (1, 20200310, 1);

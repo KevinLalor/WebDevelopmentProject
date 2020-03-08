@@ -4,7 +4,6 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-    <link rel="icon" type="image/png" href="http://icongal.com/gallery/image/10773/books_learn_study_school.png">
     <title>LB Library</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,15 +22,12 @@
         <div class="welcome-class">
             <h2>Welcome</h2>
             <p>Hello <span th:text="${name}"></span></p>
-            <p>Where would you like to go?</p>
+            <p>Please select one of the following options.</p>
         </div>
         <div class="list-group">
-            <a href="member.html" class="list-group-item list-group-item-action">Add or Remove Artifacts</a>
-            <a href="librarian.html" class="list-group-item list-group-item-action">Search Members</a>
-            <a href="catalogue.html" class="list-group-item list-group-item-action">Search Catalogue</a>
-            <a href="join.html" class="list-group-item list-group-item-action">Update Member Profiles</a>
-            <a href="#" class="list-group-item list-group-item-action">Settings</a>
-            <a href="/logout" class="list-group-item list-group-item-action">Log Out</a>
+            <a href="/member_settings_change_username" class="list-group-item list-group-item-action">Edit Username</a>
+            <a href="/member_settings_change_password" class="list-group-item list-group-item-action">Edit Password</a>
+            <a href="/member_home" class="list-group-item list-group-item-action">Back</a>
         </div>
     </div>
 </div>

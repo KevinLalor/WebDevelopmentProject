@@ -71,11 +71,39 @@ public class LibraryController
         return "member_home.html";
     }
 
-    @GetMapping("/librarian_home")
-    public String loadLibrarianHome(Model model)
+    @GetMapping("/member_settings")
+    public String loadMemberSettings(Model model)
     {
-        model.addAttribute("name", librarianSession.getLibrarian().getUsername());
-        return "librarian_home.html";
+        model.addAttribute("name", userSession.getUser().getUsername());
+        return "member_settings.html";
+    }
+
+    @GetMapping("/member_settings_change_username")
+    public String changeMemberUsername(Model model)
+    {
+        model.addAttribute("name", userSession.getUser().getUsername());
+        return "member_username.html";
+    }
+
+    @PostMapping("/member_settings_change_username")
+    public String changedMemberUsername(String username)
+    {
+       userSession.getUser().setUsername(username);
+       return "member_settings.html";
+    }
+
+    @GetMapping("/member_settings_change_password")
+    public String changeMemberPassword(Model model)
+    {
+        model.addAttribute("name", userSession.getUser().getUsername());
+        return "member_password.html";
+    }
+
+    @PostMapping("/member_settings_change_password")
+    public String changedMemberPassword(String password)
+    {
+        userSession.getUser().setPassword(password);
+        return "member_settings.html";
     }
 
     @GetMapping("/member_catalogue")
@@ -87,21 +115,25 @@ public class LibraryController
 
         for (Loan item : userLoans)
         {
-            Long currentArtifactId = item.getArtifact();
+            Long currentArtifactId = item.getArtifactId();
 
             List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
             for (Loan reservation : reservationsOnItem)
-                if (reservation.getDueDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            {
+                if (reservation.getReturnDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            }
             
             // Should now only have either 0 or 1 or 2 reservations. One possible current loan and one possible future.
-            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifact()); }
+            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifactId()); }
             else if (reservationsOnItem.size() == 2)
             {
                 for (Loan reservation : reservationsOnItem)
                 {
                     // If the current user's reservation is within two weeks, then it is the current loan, and the other one is the future reservation.
-                    if (reservation.getMember() == userSession.getUser().getUserId())
-                        if (reservation.getDueDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifact()); }
+                    if (reservation.getUserId() == userSession.getUser().getUserId())
+                    {
+                        if (reservation.getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifactId()); }
+                    }
                 }
             }
         }
@@ -128,19 +160,25 @@ public class LibraryController
 
         for (Loan item : userLoans)
         {
-            Long currentArtifactId = item.getArtifact();
+            Long currentArtifactId = item.getArtifactId();
 
             List<Loan> reservationsOnItem = loanRepository.findByArtifactId(currentArtifactId);
             for (Loan reservation : reservationsOnItem)
-                if (reservation.getDueDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            {
+                if (reservation.getReturnDate().isBefore(LocalDate.now())) { reservationsOnItem.remove(reservation); }
+            }
             
-            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifact()); }
+            if (reservationsOnItem.size() == 1) { userLoanArtifactIds.add(item.getArtifactId()); }
             else if (reservationsOnItem.size() == 2)
             {
+                Long currentUserId = userSession.getUser().getUserId();
+                    
                 for (Loan reservation : reservationsOnItem)
                 {
-                    if (reservation.getMember() == userSession.getUser().getUserId())
-                        if (reservation.getDueDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifact()); }
+                    if (reservation.getUserId() == userSession.getUser().getUserId())
+                    {
+                        if (reservation.getReturnDate().isBefore(LocalDate.now().plusWeeks(2))) { userLoanArtifactIds.add(item.getArtifactId()); }
+                    }
                 }
             }
         }
@@ -166,7 +204,7 @@ public class LibraryController
         List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
 
         for (Loan artifactLoan : artifactHistory)
-            if (artifactLoan.getDueDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+            if (artifactLoan.getReturnDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
 
         if (artifactHistory.isEmpty())
         {
@@ -176,7 +214,7 @@ public class LibraryController
         }
         else if (artifactHistory.size() == 1)
         {
-            model.addAttribute("message", "Currently out on loan. Reservation successful for when it returns on " + artifactHistory.get(0).getDueDate().toString());
+            model.addAttribute("message", "Currently out on loan. Reservation successful for when it returns on " + artifactHistory.get(0).getReturnDate().toString());
             Loan aLoan = new Loan(userId, artifactId);
             aLoan.renew();
             loanRepository.save(aLoan);
@@ -184,7 +222,7 @@ public class LibraryController
         }
         else
         {
-            model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on " + artifactHistory.get(0).getDueDate().toString());
+            model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on " + artifactHistory.get(1).getReturnDate().toString());
             return "reservation.html";
         }
     }
@@ -192,24 +230,35 @@ public class LibraryController
     @GetMapping("/renew")
     public String renewItem(@RequestParam(name="artifactId") Long artifactId, Model model)
     {
-        Long userId = userSession.getUser().getUserId();
-
         List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
 
         for (Loan artifactLoan : artifactHistory)
-            if (artifactLoan.getDueDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
+            if (artifactLoan.getReturnDate().isBefore(LocalDate.now())) { artifactHistory.remove(artifactLoan); }
 
         if (artifactHistory.size() == 1)
         {
+
+            //loanRepository.setFixedReturnDateFor(artifactHistory.get(0).getLoanId());
             model.addAttribute("message", "Renewal successful. Now due on ");
+            Loan currentLoan = artifactHistory.get(0);
+            loanRepository.save(new Loan(currentLoan.getUserId(), currentLoan.getArtifactId(), currentLoan.getReturnDate().plusWeeks(2)));
+            model.addAttribute("message", "Renewal successful. Now due on " + currentLoan.getReturnDate().plusWeeks(2));
 
             return "reservation.html";
         }
         else
         {
-            model.addAttribute("message", "Currently reserved by another member. Can be reservaed again on ");
+            model.addAttribute("message", "Currently fully reserved. Can be reserved again on " + artifactHistory.get(1).getReturnDate());
 
             return "reservation.html";
         }
+    }
+
+    //----Methods relating to librarians
+    @GetMapping("/librarian_home")
+    public String loadLibrarianHome(Model model)
+    {
+        model.addAttribute("name", librarianSession.getLibrarian().getUsername());
+        return "librarian_home.html";
     }
 }
