@@ -417,14 +417,21 @@ public class LibraryController
             loanRepository.save(new Loan(currentLoan.getUserId(), currentLoan.getArtifactId(), currentLoan.getReturnDate().plusWeeks(2)));
             model.addAttribute("message", "Renewal successful. Now due on " + currentLoan.getReturnDate().plusWeeks(2));
 
-            return "reservation.html";
+            return "librarian_reservation.html";
         }
         else
         {
             model.addAttribute("message", "Currently fully reserved. Can be reserved again on " + artifactHistory.get(1).getReturnDate());
 
-            return "reservation.html";
+            return "librarian_reservation.html";
         }
     }
+
+    @GetMapping("/librarian_catalogue")
+    public String librarianCatalogueView()
+    {
+        return "librarian_catalogue.html";
+    }
+
 
 }
