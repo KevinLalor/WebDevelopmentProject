@@ -470,7 +470,23 @@ public class LibraryController
         return "catalogue_of_members.html";
     }
 
-<<<<<<< HEAD
+
+    @GetMapping("/search_for_items")
+    public String searchForItems(@RequestParam(name="title") String title, Model model)
+    {
+        model.addAttribute("catalogueArtifacts", artifactRepository.findByTitleContaining(title));
+
+        return "librarian_catalogue.html";
+    }
+
+    @GetMapping("/librarian_reserve")
+    public String ReserveItem()
+    {
+        return "librarian_reserve.html";
+    }
+
+
+
     @GetMapping("/new_artifact")
     public String newArtifactPage()
     {
@@ -483,6 +499,4 @@ public class LibraryController
         artifactRepository.save(anArtifact);
         return "artifact_created.html";
     }
-=======
->>>>>>> 2876f0d909020a329d444575eb657282213adab3
 }
