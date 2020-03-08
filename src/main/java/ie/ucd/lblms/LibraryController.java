@@ -285,7 +285,7 @@ public class LibraryController
         {
             if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now()))
                 pastUserLoans.add(allUserLoans.get(i));
-            else if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusWeeks(2)))
+            else if (allUserLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusWeeks(2).plusDays(1)))
                 currentUserLoans.add(allUserLoans.get(i));
             else
                 futureUserLoans.add(allUserLoans.get(i));
@@ -295,19 +295,43 @@ public class LibraryController
         List<NamedLoan> currentUserLoansInfo = new ArrayList<NamedLoan>();
         List<NamedLoan> futureUserLoansInfo = new ArrayList<NamedLoan>();
 
-        for (int i = 0; i < allUserLoans.size(); i++)//for (Loan loan : pastUserLoans)
+        for (int i = 0; i < pastUserLoans.size(); i++)//for (Loan loan : pastUserLoans)
         {
-            Optional<Artifact> currentArtifact = artifactRepository.findById(allUserLoans.get(i).getArtifactId());
-            Long artifactId = allUserLoans.get(i).getArtifactId();
+            Optional<Artifact> currentArtifact = artifactRepository.findById(pastUserLoans.get(i).getArtifactId());
+            Long artifactId = pastUserLoans.get(i).getArtifactId();
             String artifactName = currentArtifact.get().getTitle();
             String artifactType = currentArtifact.get().getMediaType();
-            LocalDate returnDate = allUserLoans.get(i).getReturnDate();
+            LocalDate returnDate = pastUserLoans.get(i).getReturnDate();
 
             pastUserLoansInfo.add(new NamedLoan(artifactId, artifactName, artifactType, returnDate));
         }
 
+        for (int i = 0; i < currentUserLoans.size(); i++)//for (Loan loan : pastUserLoans)
+        {
+            Optional<Artifact> currentArtifact = artifactRepository.findById(currentUserLoans.get(i).getArtifactId());
+            Long artifactId = currentUserLoans.get(i).getArtifactId();
+            String artifactName = currentArtifact.get().getTitle();
+            String artifactType = currentArtifact.get().getMediaType();
+            LocalDate returnDate = currentUserLoans.get(i).getReturnDate();
+
+            currentUserLoansInfo.add(new NamedLoan(artifactId, artifactName, artifactType, returnDate));
+        }
+
+        for (int i = 0; i < futureUserLoans.size(); i++)//for (Loan loan : pastUserLoans)
+        {
+            Optional<Artifact> currentArtifact = artifactRepository.findById(futureUserLoans.get(i).getArtifactId());
+            Long artifactId = futureUserLoans.get(i).getArtifactId();
+            String artifactName = currentArtifact.get().getTitle();
+            String artifactType = currentArtifact.get().getMediaType();
+            LocalDate returnDate = futureUserLoans.get(i).getReturnDate();
+
+            futureUserLoansInfo.add(new NamedLoan(artifactId, artifactName, artifactType, returnDate));
+        }
+
         model.addAttribute("name", userSession.getUser().getUsername());
         model.addAttribute("pastLoans", pastUserLoansInfo);
+        model.addAttribute("currentLoans", currentUserLoansInfo);
+        model.addAttribute("futureLoans", futureUserLoansInfo);
         return "member_loans.html";
     }
 

@@ -37,10 +37,12 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>.</td>
-                                <td>.</td>
-                                <td>.</td>
-                                <td><a href="#"><button type="submit">Renew</button></a>
+                                <tr th:each="currentLoan : ${currentLoans}">
+                                    <td th:text="${currentLoan.artifactName}"></td>
+                                    <td th:text="${currentLoan.artifactType}"></td>
+                                    <td th:text="${currentLoan.returnDate}"></td>
+                                    <td><a th:href="@{/renew(artifactId=${currentLoan.artifactId})}"><button type="submit">Renew</button></a></td>
+                                </tr>
                             </tr>
                         </tbody>
                     </table>
@@ -56,10 +58,12 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>.</td>
-                                <td>.</td>
-                                <td>.</td>
-                                <td></td>
+                                <tr th:each="futureLoan : ${futureLoans}">
+                                    <td th:text="${futureLoan.artifactName}"></td>
+                                    <td th:text="${futureLoan.artifactType}"></td>
+                                    <td th:text="${futureLoan.returnDate}"></td>
+                                    <td></td>
+                                </tr>
                             </tr>
                         </tbody>
                     </table>
@@ -78,7 +82,7 @@
                                 <td th:text="${pastLoan.artifactName}"></td>
                                 <td th:text="${pastLoan.artifactType}"></td>
                                 <td th:text="${pastLoan.returnDate}"></td>
-                                <td><a th:href="@{/reserve(artifactId=${pastLoan.artifactId})}"><button type="submit">Go to Catalogue</button></a></td>
+                                <td><a th:href="@{/reserve(artifactId=${pastLoan.artifactId})}"><button type="submit">Reserve Again</button></a></td>
                             </tr>
                         </tbody>
                     </table>
