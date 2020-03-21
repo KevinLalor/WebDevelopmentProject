@@ -609,6 +609,18 @@ public class LibraryController
         return "librarian_settings.html";
     }
 
+    @GetMapping("/librarian_settings_change_password/{id}")
+    public String librarianChangeMemberPassword(@PathVariable("id") String id, Model model){
+        long ID= Long.parseLong(id);
+        model.addAttribute("name", userRepository.findById(ID).getUsername());
+        return "librarian_password";
+    }
+    @PostMapping("/librarian_settings_change_password")
+    public String librarianChangedMemberPassword(@PathVariable("id") String id, String password){
+        long ID= Long.parseLong(id);
+        userRepository.findById(ID).setPassword(password);
+        return "librarian_home.html";
+    }
 
 >>>>>>> added ability for librarians to reserve artifacts for members
 }
