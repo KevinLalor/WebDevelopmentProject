@@ -52,10 +52,10 @@
                     <tr th:each="artifact : ${catalogueArtifacts}">
                         <td th:text="${artifact.title}"></td>
                         <td th:text="${artifact.mediaType}"></td>
-                        <td><a th:href="@{/librarian_reserve}"><button type="submit">Reserve</button></a></td>
+                        <td><a th:href="@{/librarian_reserve}"><button type="submit">Renew</button></a></td>
                         <td><a th:href="@{/lib_change_loan_status(artifactId=${artifact.artifactId})}"><button type="submit" th:text="${artifact.inLibrary}"></button></a></td>
                         <td><a th:href="@{/delete_artifact(artifactId=${artifact.artifactId})}"><button type="submit">Delete Artifact</button></a></td>
-                        <td><a th:href="@{|/librarianReserved/${artifact.artifactId}|}"><button class="btn btn-primary">Reserve</button></a></td>
+                        <td><a th:href="@{|/librarianReserved/${artifact.artifactId}|}"><button>Reserve</button></a></td>
                     </tr>
                     </tbody>
                 </table>
