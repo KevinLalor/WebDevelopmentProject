@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+
 import java.time.LocalDate;
 
 @Controller
@@ -541,7 +541,25 @@ public class LibraryController
         }
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
+    @GetMapping("/lib_change_loan_status")
+    public RedirectView changeLoanStatus(@RequestParam(name="artifactId") Long artifactId)
+    {
+        Artifact updatedArtifact = artifactRepository.getOne(artifactId);
+        updatedArtifact.setInLibrary(
+            !(artifactRepository.getOne(artifactId).getInLibrary())
+            );
+        artifactRepository.save(updatedArtifact);
+        return new RedirectView("/librarian_catalogue");
+    }
+<<<<<<< HEAD
+=======
+=======
 
+>>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
     @GetMapping("/librarianReserved/{id}")
     public String reservedByLibrarian(@PathVariable("id") String id, Model model)
     {
@@ -607,4 +625,8 @@ public class LibraryController
         return "librarian_home.html";
     }
 
+<<<<<<< HEAD
+>>>>>>> added ability for librarians to reserve artifacts for members
+=======
+>>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
 }
