@@ -61,8 +61,9 @@ public class LibraryController
     }
 
     @PostMapping("/join")
-    public String signUpUser(User aUser)
+    public String signUpUser(User aUser, Model model)
     {
+        model.addAttribute("name", aUser.getUsername());
         userRepository.save(aUser);
         return "welcome.html";
     }
