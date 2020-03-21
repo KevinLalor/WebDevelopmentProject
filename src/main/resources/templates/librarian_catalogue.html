@@ -43,6 +43,8 @@
                         <th>Title</th>
                         <th>Media Type</th>
                         <th></th>
+                        <th>In Library?</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,6 +52,7 @@
                         <td th:text="${artifact.title}"></td>
                         <td th:text="${artifact.mediaType}"></td>
                         <td><a th:href="@{/librarian_reserve}"><button type="submit">Reserve</button></a></td>
+                        <td><a th:href="@{/lib_change_loan_status(artifactId=${artifact.artifactId})}"><button type="submit" th:text="${artifact.inLibrary}"></button></a></td>
                         <td><a th:href="@{/delete_artifact(artifactId=${artifact.artifactId})}"><button type="submit">Delete Artifact</button></a></td>
                     </tr>
                     </tbody>

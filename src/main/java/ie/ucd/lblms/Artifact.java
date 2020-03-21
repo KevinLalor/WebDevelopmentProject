@@ -20,6 +20,7 @@ public class Artifact
         this.title = title;
         this.mediaType = mediaType;
         this.inLibrary = true;
+        this.inLibrary = true;
     }
 
     public Long getArtifactId() { return artifactId; }
