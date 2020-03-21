@@ -541,10 +541,6 @@ public class LibraryController
         }
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
     @GetMapping("/lib_change_loan_status")
     public RedirectView changeLoanStatus(@RequestParam(name="artifactId") Long artifactId)
     {
@@ -555,11 +551,7 @@ public class LibraryController
         artifactRepository.save(updatedArtifact);
         return new RedirectView("/librarian_catalogue");
     }
-<<<<<<< HEAD
-=======
-=======
 
->>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
     @GetMapping("/librarianReserved/{id}")
     public String reservedByLibrarian(@PathVariable("id") String id, Model model)
     {
@@ -624,9 +616,4 @@ public class LibraryController
         userRepository.findById(ID).setPassword(password);
         return "librarian_home.html";
     }
-
-<<<<<<< HEAD
->>>>>>> added ability for librarians to reserve artifacts for members
-=======
->>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
 }
