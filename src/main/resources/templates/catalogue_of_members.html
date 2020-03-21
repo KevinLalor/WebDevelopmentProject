@@ -34,6 +34,7 @@
                         <input type="text" name="username">
                     </form>
                     <a href="/catalogue_of_members"><button>Clear Search</button></a>
+                    <a href="/librarian_home"><button>Back</button></a>
                     <table class="table">
                         <thead>
                             <tr>
@@ -47,6 +48,7 @@
                                 <td><a th:href="@{|/view/${user.userId}|}"><button>View</button></a></td>
                                 <td><a th:href="@{|/librarian_settings/${user.userId}|}"><button>Edit</button></a></td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>

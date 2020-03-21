@@ -1,7 +1,6 @@
 package ie.ucd.lblms;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,8 +61,9 @@ public class LibraryController
     }
 
     @PostMapping("/join")
-    public String signUpUser(User aUser)
+    public String signUpUser(User aUser, Model model)
     {
+        model.addAttribute("name", aUser.getUsername());
         userRepository.save(aUser);
         return "welcome.html";
     }

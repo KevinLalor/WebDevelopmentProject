@@ -7,11 +7,122 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" type="image/png" href="http://icongal.com/gallery/image/10773/books_learn_study_school.png">
-    <title>LB Library - Member Login</title>
+    <title>LB Library - Reserve</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/common.css">
+    <style>
+
+  body, html {
+    height: 100%;
+  }
+
+  h1{
+    font-size: 2.5vw;
+  }
+
+  h2{
+    font-size: 2vw;
+  }
+
+  p{
+    font-size: 1.5vw;
+  }
+
+  .row{
+    font-size: 1vw;
+  }
+  
+  .background-image {
+    /* The image used */
+    background-image: url("../images/main-page.jpg");
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-size: cover;
+    overflow-y: scroll;    
+  }
+
+  .background-image-content-box{
+    background-color: #D8D8F6;
+    float: right;
+    width: 35%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+/* Bordered form */
+.login-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 60%;
+  margin-top: 5%;
+  margin-left: 33%;
+}
+
+form {
+  background-color: #D8D8F6;
+  
+}
+
+.login-page-header{
+  color: #2C2C34;
+  text-align: center;
+  padding: 15%;
+  background-color:#B18FCF;
+  font-family: Simplifica;
+  position: relative;
+  background-color: #978897;
+  
+
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #494850;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #B18FCF;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button*/
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #B18FCF;;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 1%;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+  </style>
 </head>
 <body>
 <div class="background-image">

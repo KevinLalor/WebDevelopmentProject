@@ -7,24 +7,39 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="http://icongal.com/gallery/image/10773/books_learn_study_school.png">
     <title>LB Library</title>
     <style>
-body, html {
+@keyframes main-header {
+  0%   {background-color:red; left:0%; top:0%;}
+  25%  {background-color:yellow; left:20%; top:0%;}
+  50%  {background-color:blue; left:20%; top:10%;}
+  75%  {background-color:green; left:0%; top:10%;}
+  100% {background-color:red; left:0%; top:0%;}
+}
+
+  body, html {
     height: 100%;
   }
+
   h1{
     font-size: 2.5vw;
   }
+
   h2{
     font-size: 2vw;
   }
+
   p{
     font-size: 1.5vw;
   }
+
   .row{
     font-size: 1vw;
   }
+
   .background-image {
     /* The image used */
     background-image: url("../images/main-page.jpg");
@@ -34,6 +49,7 @@ body, html {
     background-size: cover;
     overflow-y: scroll;
   }
+
   .background-image-content-box{
     background-color: #D8D8F6;
     float: right;
@@ -59,6 +75,20 @@ body, html {
   .list-group-item-action:hover{
     transform: scale(1.1);
   }
+  .home-page-header{
+    color: #2C2C34;
+    text-align: center;
+    padding: 10%;
+    background-color:#B18FCF;
+    font-family: Simplifica;
+
+    width: 5px;
+    height: 5px;
+    position: relative;
+    background-color: red;
+    animation-name: main-header;
+    animation-duration: 2s;
+  }
 
 /* Bordered form */
 .login-content-box{
@@ -68,6 +98,16 @@ body, html {
   height: 60%;
   margin-top: 5%;
   margin-left: 33%;
+}
+
+.signup-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 60%;
+  margin-top: 1%;
+  margin-left: 33%;
+
 }
 
 form {
@@ -96,6 +136,16 @@ input[type=text], input[type=password] {
   border: 1px solid #494850;
   box-sizing: border-box;
 }
+
+/* Colour scheme
+    pale lavender #D8D8F6
+    pastel purple #B18FCF
+    spanish grey  #978897
+    quartz        #494850
+    gunmetal      #2C2C34
+
+
+*/
 /* Set a style for all buttons */
 button {
   background-color: #B18FCF;
@@ -140,19 +190,40 @@ span.psw {
   padding: 1%;
 
 }
+
+.signup-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 40%;
+  margin-top: 13%;
+  margin-left: 33%;
+
+}
+
+.signup1-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 40%;
+  margin-top: 1%;
+  margin-left: 33%;
+
+}
 </style>
+
 </head>
 <body>
 <div class="background-image">
     <div class="background-image-content-box">
         <div class="home-page-header">
-            <center><h1>LB Library</h1></center>
+            <h1>LB Library</h1>
         </div>
-        <center><div class="welcome-class">
+        <div class="welcome-class">
             <h2>Welcome</h2>
             <p>Hello <span th:text="${name}"></span></p>
             <p>Please select one of the following options.</p>
-        </div></center>
+        </div>
         <div class="list-group">
             <td><a th:href="@{|/librarian_settings_change_username/${user.userId}|}" class="list-group-item list-group-item-action">Edit Username</a></td>
             <td><a th:href="@{|/librarian_settings_change_password/${user.userId}|}" class="list-group-item list-group-item-action">Edit Password</a></td>
