@@ -518,19 +518,15 @@ public class LibraryController
     }
     
     @GetMapping("/delete_artifact")
-    public String createArtifact(@RequestParam(name="artifactId") Long artifactId, Model model)
-    {
+    public String createArtifact(@RequestParam(name="artifactId") Long artifactId, Model model) {
         List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
         boolean stillOnLoan = false;
 
-        for (int i = 0; i < artifactHistory.size(); i++)
-        {
-            if (artifactHistory.get(i).getReturnDate().isAfter(LocalDate.now().minusDays(1)))
-            {
+        for (int i = 0; i < artifactHistory.size(); i++) {
+            if (artifactHistory.get(i).getReturnDate().isAfter(LocalDate.now().minusDays(1))) {
                 stillOnLoan = true;
             }
         }
-
         if (!stillOnLoan)
         {
             artifactRepository.removeByArtifactId(artifactId);
@@ -546,6 +542,9 @@ public class LibraryController
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
     @GetMapping("/lib_change_loan_status")
     public RedirectView changeLoanStatus(@RequestParam(name="artifactId") Long artifactId)
     {
@@ -556,7 +555,11 @@ public class LibraryController
         artifactRepository.save(updatedArtifact);
         return new RedirectView("/librarian_catalogue");
     }
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
     @GetMapping("/librarianReserved/{id}")
     public String reservedByLibrarian(@PathVariable("id") String id, Model model)
     {
@@ -622,5 +625,8 @@ public class LibraryController
         return "librarian_home.html";
     }
 
+<<<<<<< HEAD
 >>>>>>> added ability for librarians to reserve artifacts for members
+=======
+>>>>>>> 569c9abbae3250964ef28c37f63f66a1570cd647
 }
