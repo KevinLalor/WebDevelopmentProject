@@ -425,8 +425,7 @@ public class LibraryController
     @GetMapping("/librarianRenew")
     public String librarianRenewItem(@RequestParam(name="artifactId") Long artifactId, Model model)
     {
-        List<Loan> artifactHistory = new ArrayList<Loan>(loanRepository.findByArtifactId(artifactId));
-
+        List<Loan> artifactHistory = new ArrayList<>(loanRepository.findByArtifactId(artifactId));
         for (int i = 0; i < artifactHistory.size(); i++)//for (Loan artifactLoan : artifactHistory)
         {
             if (artifactHistory.get(i).getReturnDate().isBefore(LocalDate.now()))
@@ -435,7 +434,11 @@ public class LibraryController
                 i--;
             }
         }
+        if(artifactHistory.size() == 0){
+            model.addAttribute("message", "This artifact is currently not on loan and does not need to be renewed");
 
+            return "librarian_reservation.html";
+        }
         if (artifactHistory.size() == 1)
         {
             Loan currentLoan = artifactHistory.get(0);
@@ -444,13 +447,14 @@ public class LibraryController
 
             return "librarian_reservation.html";
         }
-        else
-        {
+        else{
             model.addAttribute("message", "Currently fully reserved. Can be reserved again on " + artifactHistory.get(1).getReturnDate());
 
             return "librarian_reservation.html";
         }
+        //return "librarian_reservation.html";
     }
+
 
     @GetMapping("/librarian_catalogue")
     public String librarianCatalogueView(Model model)

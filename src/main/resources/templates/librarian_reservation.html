@@ -16,13 +16,13 @@
 <body>
 <div class="background-image">
     <div class="signup-content-box">
-        <form action="/librarian_home" method="get">
+        <form>
             <div class="container">
                 <div class="login-page-header">
                     <h1>LB Library</h1>
                     <h2><span th:text="${message}"></span>.</h2>
                 </div>
-                <button type="submit" onclick="window.location.href = '/librarian_home';">Return to Home</button>
+                <a href="/librarian_catalogue">Back to Catalogue</a>
             </div>
         </form>
 
