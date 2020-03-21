@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+
 import java.time.LocalDate;
 
 @Controller
@@ -541,6 +541,16 @@ public class LibraryController
         }
     }
 
+    @GetMapping("/lib_change_loan_status")
+    public RedirectView changeLoanStatus(@RequestParam(name="artifactId") Long artifactId)
+    {
+        Artifact updatedArtifact = artifactRepository.getOne(artifactId);
+        updatedArtifact.setInLibrary(
+            !(artifactRepository.getOne(artifactId).getInLibrary())
+            );
+        artifactRepository.save(updatedArtifact);
+        return new RedirectView("/librarian_catalogue");
+    }
 
     @GetMapping("/librarianReserved/{id}")
     public String reservedByLibrarian(@PathVariable("id") String id, Model model)
@@ -606,5 +616,4 @@ public class LibraryController
         userRepository.findById(ID).setPassword(password);
         return "librarian_home.html";
     }
-
 }
