@@ -9,11 +9,217 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Member Login</title>
+    <title>Librarian Username</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* Colour scheme   
+    pale lavender #D8D8F6
+    pastel purple #B18FCF
+    spanish grey  #978897
+    quartz        #494850
+    gunmetal      #2C2C34
+*/
+@keyframes main-header {
+  0%   {background-color:red; left:0%; top:0%;}
+  25%  {background-color:yellow; left:20%; top:0%;}
+  50%  {background-color:blue; left:20%; top:10%;}
+  75%  {background-color:green; left:0%; top:10%;}
+  100% {background-color:red; left:0%; top:0%;}
+}
+
+  body, html {
+    height: 100%;
+  }
+
+  h1{
+    font-size: 2.5vw;
+  }
+
+  h2{
+    font-size: 2vw;
+  }
+
+  p{
+    font-size: 1.5vw;
+  }
+
+  .row{
+    font-size: 1vw;
+  }
+  
+  .background-image {
+    /* The image used */
+    background-image: url("../images/main-page.jpg");
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-size: cover;
+    overflow-y: scroll;    
+  }
+
+  .background-image-content-box{
+    background-color: #D8D8F6;
+    float: right;
+    width: 35%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  .welcome-class{
+    text-align: center;
+    padding-top: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .list-group{
+    padding-top: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .list-group-item{
+    color: #494850;
+    transition: all 0.5s ease-in-out; 
+  }
+  .list-group-item-action:hover{
+    transform: scale(1.1);
+  }
+  .home-page-header{
+    color: #2C2C34;
+    text-align: center;
+    padding: 10%;
+    background-color:#B18FCF;
+    font-family: Simplifica;
+      
+    width: 5px;
+    height: 5px;
+    position: relative;
+    background-color: red;
+    animation-name: main-header;
+    animation-duration: 2s;  
+  }
+
+/* Bordered form */
+.login-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 60%;
+  margin-top: 5%;
+  margin-left: 33%;
+}
+
+.signup-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 60%;
+  margin-top: 1%;
+  margin-left: 33%;
+
+}
+
+form {
+  background-color: #D8D8F6;
+  
+}
+
+.login-page-header{
+  color: #2C2C34;
+  text-align: center;
+  padding: 15%;
+  background-color:#B18FCF;
+  font-family: Simplifica;
+  position: relative;
+  background-color: #978897;
+  
+
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #494850;
+  box-sizing: border-box;
+}
+
+/* Colour scheme   
+    pale lavender #D8D8F6
+    pastel purple #B18FCF
+    spanish grey  #978897
+    quartz        #494850
+    gunmetal      #2C2C34
+
+
+*/
+/* Set a style for all buttons */
+button {
+  background-color: #B18FCF;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button*/
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #B18FCF;;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 1%;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+  
+.catalogue-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+  margin-left: 10%;
+  overflow-y: scroll;
+  padding: 1%;
+
+}
+
+.signup-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 40%;
+  margin-top: 13%;
+  margin-left: 33%;
+
+}
+
+.signup1-content-box{
+  background-color: #D8D8F6;
+  display: inline-block;
+  width: 33%;
+  height: 40%;
+  margin-top: 1%;
+  margin-left: 33%;
+
+}
+    </style>
 </head>
 
 <body>
