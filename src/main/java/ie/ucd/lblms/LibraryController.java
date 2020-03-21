@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -526,5 +526,16 @@ public class LibraryController
             model.addAttribute("message", "Item currently reserved, so cannot be deleted");
             return "artifact_deleted.html";
         }
+    }
+
+    @GetMapping("/lib_change_loan_status")
+    public RedirectView changeLoanStatus(@RequestParam(name="artifactId") Long artifactId)
+    {
+        Artifact updatedArtifact = artifactRepository.getOne(artifactId);
+        updatedArtifact.setInLibrary(
+            !(artifactRepository.getOne(artifactId).getInLibrary())
+            );
+        artifactRepository.save(updatedArtifact);
+        return new RedirectView("/librarian_catalogue");
     }
 }
