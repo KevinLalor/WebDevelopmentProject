@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArtifactRepository extends JpaRepository<Artifact, Long>
@@ -16,6 +17,10 @@ public interface ArtifactRepository extends JpaRepository<Artifact, Long>
     List<Artifact> findByArtifactIdInAndTitleContaining(List<Long> artifactId, String title);
     List<Artifact> findByArtifactIdNotInAndTitleContaining(List<Long> artifactId, String title);
 
+
+    Artifact findById(long ID);
+
     @Transactional
     Long removeByArtifactId(Long artifactId);
+
 }

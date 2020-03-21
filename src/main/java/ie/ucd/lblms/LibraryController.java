@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -356,6 +357,29 @@ public class LibraryController
 
         List<Loan> userLoans = loanRepository.findByUserId(ID);
         List<Long> userLoanArtifactIds = new ArrayList<>();
+        List<Loan> pastUserLoans = new ArrayList<Loan>();
+
+
+        for (int i = 0; i < userLoans.size(); i++)//for (Loan loan : allUserLoans)
+        {
+            if (userLoans.get(i).getReturnDate().isBefore(LocalDate.now().plusDays(1)))
+                pastUserLoans.add(userLoans.get(i));
+        }
+
+        List<NamedLoan> pastUserLoansInfo = new ArrayList<NamedLoan>();
+
+        for (int i = 0; i < pastUserLoans.size(); i++)//for (Loan loan : pastUserLoans)
+        {
+            Optional<Artifact> currentArtifact = artifactRepository.findById(pastUserLoans.get(i).getArtifactId());
+            Long artifactId = pastUserLoans.get(i).getArtifactId();
+            String artifactName = currentArtifact.get().getTitle();
+            String artifactType = currentArtifact.get().getMediaType();
+            LocalDate returnDate = pastUserLoans.get(i).getReturnDate();
+
+            pastUserLoansInfo.add(new NamedLoan(artifactId, artifactName, artifactType, returnDate));
+        }
+
+        model.addAttribute("pastLoans", pastUserLoansInfo);
 
         for (int i = 0; i < userLoans.size(); i++)//for (Loan item : userLoans)
         {
@@ -479,13 +503,6 @@ public class LibraryController
         return "librarian_catalogue.html";
     }
 
-    @GetMapping("/librarian_reserve")
-    public String ReserveItem()
-    {
-        return "librarian_reserve.html";
-    }
-
-
 
     @GetMapping("/new_artifact")
     public String newArtifactPage()
@@ -501,19 +518,15 @@ public class LibraryController
     }
     
     @GetMapping("/delete_artifact")
-    public String createArtifact(@RequestParam(name="artifactId") Long artifactId, Model model)
-    {
+    public String createArtifact(@RequestParam(name="artifactId") Long artifactId, Model model) {
         List<Loan> artifactHistory = loanRepository.findByArtifactId(artifactId);
         boolean stillOnLoan = false;
 
-        for (int i = 0; i < artifactHistory.size(); i++)
-        {
-            if (artifactHistory.get(i).getReturnDate().isAfter(LocalDate.now().minusDays(1)))
-            {
+        for (int i = 0; i < artifactHistory.size(); i++) {
+            if (artifactHistory.get(i).getReturnDate().isAfter(LocalDate.now().minusDays(1))) {
                 stillOnLoan = true;
             }
         }
-
         if (!stillOnLoan)
         {
             artifactRepository.removeByArtifactId(artifactId);
@@ -538,4 +551,70 @@ public class LibraryController
         artifactRepository.save(updatedArtifact);
         return new RedirectView("/librarian_catalogue");
     }
+
+    @GetMapping("/librarianReserved/{id}")
+    public String reservedByLibrarian(@PathVariable("id") String id, Model model)
+    {
+        long ID = Long.parseLong(id);
+        model.addAttribute("name", artifactRepository.findById(ID).getTitle());
+
+        return "librarian_reserve.html";
+    }
+
+    @PostMapping("/reservedByLibrarian")
+    public String libReserve(String username, Long artifactId, Model model)
+    {
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isPresent()) {
+            Long userId = user.get().getUserId();
+
+            List<Loan> artifactHistory = new ArrayList<Loan>(loanRepository.findByArtifactId(artifactId));
+
+            for (int i = 0; i < artifactHistory.size(); i++)//for (Loan artifactLoan : artifactHistory)
+            {
+                if (artifactHistory.get(i).getReturnDate().isBefore(LocalDate.now())) {
+                    artifactHistory.remove(i);
+                    i--;
+                }
+            }
+
+            if (artifactHistory.isEmpty()) {
+                loanRepository.save(new Loan(userId, artifactId));
+                model.addAttribute("message", "Reservation successful.");
+                return "librarian_reservation.html";
+            } else if (artifactHistory.size() == 1) {
+                model.addAttribute("message", "Currently out on loan. Reservation successful for when it returns on " + artifactHistory.get(0).getReturnDate().toString());
+                Loan aLoan = new Loan(userId, artifactId);
+                aLoan.renew();
+                loanRepository.save(aLoan);
+                return "librarian_reservation.html";
+            } else {
+                model.addAttribute("message", "Currently out on loan, and Reserved when it returns. Available for further reservation on " + artifactHistory.get(1).getReturnDate().toString());
+                return "librarian_reservation.html";
+            }
+        }
+        return "librarian_home.html";
+    }
+
+    @GetMapping("/librarian_settings/{id}")
+    public String memberSettings(@PathVariable("id") String id, Model model)
+    {
+        long ID= Long.parseLong(id);
+        model.addAttribute("user", userRepository.findById(ID));
+        return "librarian_settings.html";
+    }
+
+    @GetMapping("/librarian_settings_change_password/{id}")
+    public String librarianChangeMemberPassword(@PathVariable("id") String id, Model model){
+        long ID= Long.parseLong(id);
+        model.addAttribute("name", userRepository.findById(ID).getUsername());
+        return "librarian_password";
+    }
+    @PostMapping("/librarian_settings_change_password")
+    public String librarianChangedMemberPassword(@PathVariable("id") String id, String password){
+        long ID= Long.parseLong(id);
+        userRepository.findById(ID).setPassword(password);
+        return "librarian_home.html";
+    }
+
 }
