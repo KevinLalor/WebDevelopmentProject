@@ -1,18 +1,19 @@
 package ie.ucd.lblms;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+
 import java.time.LocalDate;
 
 @Controller
@@ -32,6 +33,8 @@ public class LibraryController
 
     @Autowired
     private LibrarianSession librarianSession;
+
+    public Long currentId;
 
     @GetMapping("/")
     public String home() { return "index.html"; }
@@ -541,6 +544,16 @@ public class LibraryController
         }
     }
 
+    @GetMapping("/lib_change_loan_status")
+    public RedirectView changeLoanStatus(@RequestParam(name="artifactId") Long artifactId)
+    {
+        Artifact updatedArtifact = artifactRepository.getOne(artifactId);
+        updatedArtifact.setInLibrary(
+            !(artifactRepository.getOne(artifactId).getInLibrary())
+            );
+        artifactRepository.save(updatedArtifact);
+        return new RedirectView("/librarian_catalogue");
+    }
 
     @GetMapping("/librarianReserved/{id}")
     public String reservedByLibrarian(@PathVariable("id") String id, Model model)
@@ -597,14 +610,39 @@ public class LibraryController
     @GetMapping("/librarian_settings_change_password/{id}")
     public String librarianChangeMemberPassword(@PathVariable("id") String id, Model model){
         long ID= Long.parseLong(id);
-        model.addAttribute("name", userRepository.findById(ID).getUsername());
+        model.addAttribute("name", userRepository.findById(ID).getPassword());
+        model.addAttribute(ID);
+        setCurrentId(ID);
         return "librarian_password";
     }
-    @PostMapping("/librarian_settings_change_password")
-    public String librarianChangedMemberPassword(@PathVariable("id") String id, String password){
-        long ID= Long.parseLong(id);
+    @PostMapping("/librarian_settings_changed_password")
+    public String librarianChangedMemberPassword(String password) {
+        long ID = getCurrentId();
         userRepository.findById(ID).setPassword(password);
+        userRepository.save(userRepository.findById(ID));
         return "librarian_home.html";
     }
 
+    public void setCurrentId(Long id){
+        currentId = id;
+    }
+    public Long getCurrentId(){
+        return currentId;
+    }
+
+    @GetMapping("/librarian_settings_change_username/{id}")
+    public String librarianChangeMemberUsername(@PathVariable("id") String id, Model model){
+        long ID= Long.parseLong(id);
+        model.addAttribute("name", userRepository.findById(ID).getUsername());
+        model.addAttribute(ID);
+        setCurrentId(ID);
+        return "librarian_username";
+    }
+    @PostMapping("/librarian_settings_changed_username")
+    public String librarianChangedMemberUsername(String username) {
+        long ID = getCurrentId();
+        userRepository.findById(ID).setUsername(username);
+        userRepository.save(userRepository.findById(ID));
+        return "librarian_home.html";
+    }
 }

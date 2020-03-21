@@ -28,51 +28,55 @@
                 </div>
             </nav>
 
-        <div class="row">
-            <div class="col-lg-12 align-self-center">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Media Type</th>
-                        <th>Returned</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="artifact : ${currentUserArtifacts}">
-                        <td th:text="${artifact.title}"></td>
-                        <td th:text="${artifact.mediaType}"></td>
-                        <td>True</td>
-                        <td><a th:href="@{/librarianRenew(artifactId=${artifact.artifactId})}"><button type="submit">Renew</button></a></td>
-                        <td><a th:href="@{/librarianReserve(artifactId=${artifact.artifactId})}"><button type="submit">Reserve</button></a></td>
-                    </tr>
-                    </tbody>
-                    <p><b>Past Loans</b></p>
+            <div class="row">
+                <div class="col-lg-12 align-self-center">
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Media Type</th>
-                            <th>Return Date</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th>Title</th>
+                                <th>Media Type</th>
+                                <th>Returned</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="pastLoan : ${pastLoans}">
-                            <td th:text="${pastLoan.artifactName}"></td>
-                            <td th:text="${pastLoan.artifactType}"></td>
-                            <td th:text="${pastLoan.returnDate}"></td>
-                            <td><a th:href="@{/librarianRenew(artifactId=${pastLoan.artifactId})}"><button type="submit">Renew</button></a></td>
-                            <td><a th:href="@{/librarianReserve(artifactId=${pastLoan.artifactId})}"><button type="submit">Reserve</button></a></td>
-                        </tr>
+                            <tr th:each="artifact : ${currentUserArtifacts}">
+                                <td th:text="${artifact.title}"></td>
+                                <td th:text="${artifact.mediaType}"></td>
+                                <td>True</td>
+                                <td><a th:href="@{/librarianRenew(artifactId=${artifact.artifactId})}"><button
+                                            type="submit">Renew</button></a></td>
+                                <td><a th:href="@{/librarianReserve(artifactId=${artifact.artifactId})}"><button
+                                            type="submit">Reserve</button></a></td>
+                            </tr>
                         </tbody>
+                        <p><b>Past Loans</b></p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Media Type</th>
+                                    <th>Return Date</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="pastLoan : ${pastLoans}">
+                                    <td th:text="${pastLoan.artifactName}"></td>
+                                    <td th:text="${pastLoan.artifactType}"></td>
+                                    <td th:text="${pastLoan.returnDate}"></td>
+                                    <td><a th:href="@{/librarianRenew(artifactId=${pastLoan.artifactId})}"><button
+                                                type="submit">Renew</button></a></td>
+                                    <td><a th:href="@{/librarianReserve(artifactId=${pastLoan.artifactId})}"><button
+                                                type="submit">Reserve</button></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </table>
-                </table>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </body>
