@@ -460,8 +460,7 @@ public class LibraryController
     public String librarianCatalogueView(Model model)
     {
         long ID = 1;
-        model.addAttribute("note", userRepository.findById(ID));
-        model.addAttribute("name", userRepository.findById(ID).getUsername());
+        model.addAttribute("name", librarianSession.getLibrarian().getUsername());
 
         List<Loan> userLoans = loanRepository.findByUserId(ID);
         List<Long> userLoanArtifactIds = new ArrayList<>();

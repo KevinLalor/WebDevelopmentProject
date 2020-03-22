@@ -1,0 +1,16 @@
+--User Stories--
+
+These are some of the features that different groups of users might require when using our application.
+
+As a non-member, I should be able to view the catalogue so that I can see what the inventory is like.
+As a non-member, I should be able to provide new login details so that I can become a member and avail of features.
+
+As a member, I can take items out on loan, so that I read them outside the library.
+As a member, I need to be able to search the catalogue, so I can see if the library has a particular item
+As a member, I want to be able to renew items, so that I can finish reading them when my loan expires.
+As a member, I can view my past loans, so that I can find any items I have forgotten about.
+As a member, I should be able to update my username and password in case they are stolen.
+
+As a librarian, I need to be able to mark books as present or out on loan, to manage the inventory.
+As a librarian, I need to be able to perform member functions for members, in case they are unable themselves.
+As a librarian, I can add or delete artifacts from the catalogue to reflect the actual current inventory.
