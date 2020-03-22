@@ -38,6 +38,9 @@ public class LibraryController
     @GetMapping("/")
     public String home() { return "index.html"; }
 
+    @GetMapping("/error")
+    public String error() { return "error.html"; }
+
     //----- Methods Related to Public Features
 
     @GetMapping("/public_catalogue")
