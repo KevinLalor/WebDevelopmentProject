@@ -130,8 +130,7 @@ button:hover {
                                 <td>True</td>
                                 <td><a th:href="@{/librarianRenew(artifactId=${artifact.artifactId})}"><button
                                             type="submit">Renew</button></a></td>
-                                <td><a th:href="@{/librarianReserve(artifactId=${artifact.artifactId})}"><button
-                                            type="submit">Reserve</button></a></td>
+                                <td><a th:href="@{|/librarianReserved/${artifact.artifactId}|}"><button type="submit">Reserve</button></a></td>
                             </tr>
                         </tbody>
                         <p><b>Past Loans</b></p>
@@ -152,8 +151,7 @@ button:hover {
                                     <td th:text="${pastLoan.returnDate}"></td>
                                     <td><a th:href="@{/librarianRenew(artifactId=${pastLoan.artifactId})}"><button
                                                 type="submit">Renew</button></a></td>
-                                    <td><a th:href="@{/librarianReserve(artifactId=${pastLoan.artifactId})}"><button
-                                                type="submit">Reserve</button></a></td>
+                                    <td><a th:href="@{|/librarianReserved/${pastLoan.artifactId}|}"><button type="submit">Reserve</button></a></td>
                                 </tr>
                             </tbody>
                         </table>
