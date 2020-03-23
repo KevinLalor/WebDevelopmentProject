@@ -19,3 +19,11 @@ Ensure MySQL properties are active in src/main/resources/application.properties
 **docker-compose build**
 
 **docker-compose up**
+
+## Location of Documentation: 
+The report, wireframe and userstories are all located here in the same 
+directory as the README file.
+
+## Team Members and name
+This project was completed by team "LIAMS BOYS"
+Members: Kevin Lalor, Liam Phelan and Oscar Phelan.
